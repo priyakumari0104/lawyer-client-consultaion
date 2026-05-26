@@ -1,0 +1,233 @@
+/* ==========================================================================
+   1. MAIN PAGE HEADERS
+   ========================================================================== */
+.documents-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  color: #e2e8f0;
+}
+
+.documents-header {
+  margin-bottom: 36px;
+}
+
+.documents-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.documents-header .subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.documents-section-title h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+/* ==========================================================================
+   2. INTERACTIVE DRAG & DROP ZONE
+   ========================================================================== */
+.upload-dropzone {
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 44px;
+}
+
+.dropzone-inner {
+  width: 100%;
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 40px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.dropzone-inner:hover {
+  border-color: #00d9ff;
+  background: rgba(0, 217, 255, 0.01);
+}
+
+.upload-icon {
+  font-size: 32px;
+  opacity: 0.8;
+}
+
+.main-drop-text {
+  font-size: 15px;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.browse-link {
+  color: #00d9ff;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.hint-text {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Hidden native implementation wrapper */
+.hidden-file-input {
+  display: none;
+}
+
+/* Custom Controller Action Trigger */
+.upload-submit-btn {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff00c8, #00d9ff);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(0, 217, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.upload-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 217, 255, 0.4);
+}
+
+/* ==========================================================================
+   3. MANAGEMENT LIST & PREMIUM DOCUMENT CARDS
+   ========================================================================== */
+.documents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.document-card-premium {
+  padding: 18px 24px;
+  border-radius: 16px;
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  transition: all 0.2s ease;
+}
+
+.document-card-premium:hover {
+  background: #151b2e;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Left Group Metadata Styling */
+.doc-meta-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.file-icon-avatar {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.file-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.file-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.file-subdata {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.divider-dot {
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+}
+
+/* ==========================================================================
+   4. CONTROL BUTTON ACTIONS INTERACTION
+   ========================================================================== */
+.doc-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.doc-action-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.doc-action-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Special treatments for dangerous delete actions */
+.doc-action-btn.delete:hover {
+  background: rgba(244, 63, 94, 0.08);
+  color: #f43f5e;
+  border-color: rgba(244, 63, 94, 0.2);
+}
+
+.doc-action-btn.view {
+  background: rgba(0, 217, 255, 0.05);
+  color: #00d9ff;
+  border-color: rgba(0, 217, 255, 0.1);
+}
+
+.doc-action-btn.view:hover {
+  background: rgba(0, 217, 255, 0.1);
+  border-color: rgba(0, 217, 255, 0.25);
+}

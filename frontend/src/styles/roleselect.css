@@ -1,0 +1,166 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+ overflow-x:hidden;
+  overflow-y:auto;
+}
+
+#root{
+  min-height:100vh;
+}
+.role-container{
+  width:100%;
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  position:relative;
+  /* overflow:hidden; */
+
+  color:white;
+}
+
+/* Glow */
+
+.glow{
+  position:absolute;
+  width:350px;
+  height:350px;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:0.4;
+}
+
+.glow1{
+  background:#ff00c8;
+  top:-100px;
+  left:-100px;
+}
+
+.glow2{
+  background:#00d9ff;
+  bottom:-100px;
+  right:-100px;
+}
+
+/* Card */
+
+.role-card{
+  width:900px;
+
+  padding:50px;
+
+  border-radius:30px;
+
+  background:rgba(255,255,255,0.08);
+
+  border:1px solid rgba(255,255,255,0.12);
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:0 0 40px rgba(0,0,0,0.4);
+
+  position:relative;
+  z-index:10;
+  overflow: visible;
+}
+
+.role-card h1{
+  text-align:center;
+
+  font-size:55px;
+
+  margin-bottom:15px;
+
+  padding-top:15px;
+
+  line-height:1.2;
+
+  overflow:visible;
+
+  background:linear-gradient(to right,#ff00c8,#00d9ff);
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.role-card p{
+  text-align:center;
+
+  color:#cfcfcf;
+
+  margin-bottom:45px;
+
+  font-size:18px;
+}
+
+/* Role Options */
+
+.role-options{
+  display:flex;
+  gap:30px;
+}
+
+.role-box{
+  flex:1;
+
+  padding:40px;
+
+  border-radius:25px;
+
+  background:rgba(255,255,255,0.06);
+
+  border:1px solid rgba(255,255,255,0.12);
+
+  cursor:pointer;
+
+  transition:0.35s;
+}
+
+.role-box:hover{
+  transform:translateY(-8px);
+
+  background:rgba(255,255,255,0.12);
+
+  box-shadow:0 0 30px rgba(0,217,255,0.4);
+}
+
+.icon{
+  font-size:60px;
+  margin-bottom:20px;
+}
+
+.role-box h2{
+  font-size:32px;
+  margin-bottom:15px;
+}
+
+.role-box span{
+  color:#d8d8d8;
+  line-height:1.7;
+  font-size:16px;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+  .role-card{
+    width:90%;
+  }
+
+  .role-options{
+    flex-direction:column;
+  }
+
+  .role-card h1{
+    font-size:40px;
+  }
+}

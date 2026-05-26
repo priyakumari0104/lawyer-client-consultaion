@@ -1,0 +1,297 @@
+/* ==========================================================================
+   1. LAYOUT FRAMES & CONTAINERS
+   ========================================================================== */
+.verification-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  color: #e2e8f0;
+}
+
+.verification-header {
+  margin-bottom: 36px;
+}
+
+.verification-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.verification-header .subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* Two column flexible canvas layout grid */
+.verification-content-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .verification-content-layout {
+    grid-template-columns: 380px 1fr;
+  }
+}
+
+/* ==========================================================================
+   2. LEFT PANEL - STATUS CARD HERO DISPLAY
+   ========================================================================== */
+.status-overview-card {
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 40px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status-icon-glow {
+  font-size: 40px;
+  width: 80px;
+  height: 80px;
+  background: rgba(241, 196, 15, 0.06);
+  border: 1px solid rgba(241, 196, 15, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  box-shadow: 0 0 20px rgba(241, 196, 15, 0.1);
+}
+
+.status-title-group {
+  margin-bottom: 16px;
+}
+
+.badge-alert-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #f1c40f; /* High-visibility yellow status color code */
+}
+
+.status-overview-card h2 {
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.status-description {
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+/* Internal detailed highlight notification box */
+.time-estimate-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #161c2e;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.clock-icon {
+  font-size: 20px;
+}
+
+.time-estimate-box h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.time-estimate-box p {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.support-footer-note {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.support-link {
+  color: #00d9ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+.support-link:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   3. RIGHT PANEL - TIMELINE PROCESS MATRIX STEPPER
+   ========================================================================== */
+.timeline-tracker-card {
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 32px;
+}
+
+.timeline-tracker-card h3 {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.timeline-sub {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 36px;
+}
+
+.stepper-vertical-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Individual node containers containing connectors */
+.stepper-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 32px;
+}
+
+/* Clean up last item tail line tracking loops */
+.stepper-item:last-of-type {
+  padding-bottom: 0;
+}
+.stepper-item:last-of-type .stepper-line {
+  display: none;
+}
+
+/* Continuous background alignment timeline logic paths */
+.stepper-node-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.stepper-node {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.stepper-line {
+  width: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  position: absolute;
+  top: 28px;
+  bottom: 0;
+  left: 13px; /* Centers vector alignment dynamically along center-nodes */
+  z-index: 1;
+}
+
+.stepper-info-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stepper-info-block h4 {
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.stepper-info-block p {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* Status text badges */
+.pill-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+/* ==========================================================================
+   4. STEPPER CONTEXTUAL VARIATIONS (COMPLETED / CURRENT / UPCOMING)
+   ========================================================================== */
+
+/* Completed Steps Styling */
+.stepper-item.completed .stepper-node {
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid #00ff88;
+  color: #00ff88;
+}
+.stepper-item.completed .stepper-info-block h4 {
+  color: #ffffff;
+}
+.stepper-item.completed .stepper-line {
+  background: #00ff88; /* Lights the connection track up green */
+  opacity: 0.3;
+}
+.stepper-item.completed .pill-badge {
+  background: rgba(0, 255, 136, 0.05);
+  color: #00ff88;
+}
+
+/* Current Active Step Styling */
+.stepper-item.current .stepper-node {
+  background: rgba(241, 196, 15, 0.1);
+  border: 1px solid #f1c40f;
+  color: #f1c40f;
+  box-shadow: 0 0 10px rgba(241, 196, 15, 0.2);
+}
+.stepper-item.current .stepper-info-block h4 {
+  color: #f1c40f;
+}
+.stepper-item.current .pill-badge {
+  background: rgba(241, 196, 15, 0.1);
+  color: #f1c40f;
+  border: 1px solid rgba(241, 196, 15, 0.2);
+}
+
+/* Upcoming Inactive Steps Styling */
+.stepper-item.upcoming {
+  opacity: 0.4;
+}
+.stepper-item.upcoming .stepper-node {
+  background: #161c2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #64748b;
+}
+.stepper-item.upcoming .stepper-info-block h4 {
+  color: #94a3b8;
+}
+.stepper-item.upcoming .pill-badge {
+  background: rgba(255, 255, 255, 0.02);
+  color: #64748b;
+}

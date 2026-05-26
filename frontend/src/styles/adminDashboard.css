@@ -1,0 +1,268 @@
+/* ==========================================================================
+   1. CORE CANVAS ARCHITECTURE & RESETS
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background: #0b0f19; /* High-luxury deep dark base canvas */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #e2e8f0;
+}
+
+/* ==========================================================================
+   2. FIXED STICKY DASHBOARD SIDEBAR
+   ========================================================================== */
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #111625; /* Elevated structural tier block layer */
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 44px;
+  background: linear-gradient(135deg, #ff00c8, #00d9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sidebar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar .nav-link {
+  text-decoration: none;
+  color: #94a3b8; /* Clear secondary text coloration prevents unreadable links */
+  font-size: 14px;
+  font-weight: 500;
+  display: block;
+}
+
+.sidebar li {
+  padding: 12px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.sidebar .nav-link:hover li {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+/* Interactive Marker for active screen routing */
+.sidebar .nav-link.active li {
+  background: rgba(0, 217, 255, 0.08);
+  color: #00d9ff;
+  font-weight: 600;
+  border: 1px solid rgba(0, 217, 255, 0.15);
+}
+
+.sidebar .logout-item {
+  margin-top: auto; /* Drops logout systematically to the page floor */
+  color: #f43f5e;
+}
+.sidebar .logout-item:hover li {
+  background: rgba(244, 63, 94, 0.08);
+  color: #ff4d6d;
+}
+
+/* ==========================================================================
+   3. MAIN CONTENT CONTROL PANEL
+   ========================================================================== */
+.dashboard-main {
+  flex: 1;
+  margin-left: 260px; /* Aligns exact spacing boundary match with sidebar width */
+  padding: 50px 60px;
+  min-height: 100vh;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 44px;
+}
+
+.dashboard-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.dashboard-header .subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* System Live Pulse Tag */
+.system-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 255, 136, 0.05);
+  border: 1px solid rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: #00ff88;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ff88;
+}
+
+/* ==========================================================================
+   4. METRICS ROW PANELS
+   ========================================================================== */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-bottom: 44px;
+}
+
+.stats-card {
+  padding: 24px;
+  border-radius: 16px;
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  text-align: left; /* Shift from center-aligned notes to real professional data logs */
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stats-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.stats-card h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #ffffff;
+}
+
+.stats-card p {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Color accents based on severity/actions */
+.stats-card.highlight-orange h2 { color: #ffb700; }
+.stats-card.highlight-green h2 { color: #00ff88; }
+
+/* ==========================================================================
+   5. AUDIT CONTROL ACTIVITY RECORD STREAM
+   ========================================================================== */
+.dashboard-activity-log {
+  width: 100%;
+}
+
+.log-card-wrapper {
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.log-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.log-header-row h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.live-pill {
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(0, 217, 255, 0.1);
+  color: #00d9ff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.log-entries-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.log-row-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #161c2e; /* Tier 3 deep layer */
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.log-left-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.log-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Category dot codes */
+.log-indicator-dot.security { background: #ffb700; box-shadow: 0 0 8px #ffb700; }
+.log-indicator-dot.transaction { background: #00ff88; box-shadow: 0 0 8px #00ff88; }
+.log-indicator-dot.system { background: #00d9ff; box-shadow: 0 0 8px #00d9ff; }
+
+.log-main-text {
+  font-size: 14px;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.log-time-label {
+  font-size: 13px;
+  color: #64748b;
+  white-space: nowrap;
+}

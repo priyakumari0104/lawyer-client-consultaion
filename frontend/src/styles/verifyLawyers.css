@@ -1,0 +1,251 @@
+/* ==========================================================================
+   1. CORE CANVAS LAYOUT
+   ========================================================================== */
+.verify-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  color: #e2e8f0;
+}
+
+.verify-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.verify-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.verify-header .subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.pending-counter {
+  background: rgba(241, 196, 15, 0.08);
+  color: #f1c40f;
+  border: 1px solid rgba(241, 196, 15, 0.2);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   2. REVENUE-GRADE AUDIT CONTAINER CARDS STREAM
+   ========================================================================== */
+.verify-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px; /* Stack layout allows easy vertical tracking across wide files */
+}
+
+.verify-card-premium {
+  background: #111625; /* Elevated tier level 2 dark base block */
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: border-color 0.2s ease;
+}
+
+.verify-card-premium:hover {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Header Core Alignment Split */
+.verify-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 20px;
+}
+
+.identity-meta-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-avatar-preview {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.identity-meta-group h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.spec-badge {
+  font-size: 13px;
+  color: #00d9ff; /* Core identifier signature color */
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   3. INTERNAL STRUCTURAL DATA COMPONENT TRACK GRIDS
+   ========================================================================== */
+.credential-audit-matrix {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  background: #161c2e; /* Nested workspace track container layer */
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.audit-data-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.matrix-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.matrix-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.matrix-value.code-font {
+  font-family: 'Courier New', Courier, monospace;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.fee-color {
+  color: #00ff88; /* Fresh value currency focus code */
+  font-weight: 600;
+}
+
+.audit-address-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.text-paragraph {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   4. FILE CHECK COMPLIANCE FOOTER LINK VAULTS
+   ========================================================================== */
+.document-vault-verification-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+@media (min-width: 600px) {
+  .document-vault-verification-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.vault-buttons-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.doc-link-btn {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.doc-link-btn:hover {
+  background: rgba(0, 217, 255, 0.06);
+  color: #00d9ff;
+  border-color: rgba(0, 217, 255, 0.2);
+}
+
+/* ==========================================================================
+   5. ACTION SYSTEM AUDIT OVERRIDES TRIGGER SWITCHES
+   ========================================================================== */
+.verify-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.audit-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.audit-btn.approve {
+  background: linear-gradient(135deg, #00d9ff, #0077ff);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 217, 255, 0.15);
+}
+.audit-btn.approve:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 217, 255, 0.35);
+}
+
+.audit-btn.reject {
+  background: transparent;
+  color: #64748b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.audit-btn.reject:hover {
+  background: rgba(244, 63, 94, 0.08);
+  color: #f43f5e;
+  border-color: rgba(244, 63, 94, 0.2);
+}
+
+.empty-audit-state {
+  background: #111625;
+  border: 1px solid rgba(0, 255, 136, 0.1);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  color: #00ff88;
+  font-weight: 500;
+}

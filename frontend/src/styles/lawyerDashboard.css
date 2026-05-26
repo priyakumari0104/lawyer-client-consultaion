@@ -1,0 +1,275 @@
+/* ==========================================================================
+   1. LAYOUT RESETS & CORE LAYER CANVAS
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background: #0b0f19; /* Deep, luxury canvas background */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #e2e8f0;
+}
+
+/* ==========================================================================
+   2. FIXED POSITION FIXED SIDEBAR
+   ========================================================================== */
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #111625; /* Elevated structural panels canvas layer */
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 44px;
+  background: linear-gradient(135deg, #ff00c8, #00d9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sidebar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Highly readable text link overrides */
+.sidebar .nav-link {
+  text-decoration: none;
+  color: #94a3b8; /* Premium muted text */
+  font-size: 14px;
+  font-weight: 500;
+  display: block;
+}
+
+.sidebar li {
+  padding: 12px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.sidebar .nav-link:hover li {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+/* Active State Matcher styling rules */
+.sidebar .nav-link.active li {
+  background: rgba(0, 217, 255, 0.08);
+  color: #00d9ff;
+  font-weight: 600;
+  border: 1px solid rgba(0, 217, 255, 0.15);
+}
+
+/* Bottom Logout Isolation */
+.sidebar .logout-item {
+  margin-top: auto;
+  color: #f43f5e;
+}
+.sidebar .logout-item:hover li {
+  background: rgba(244, 63, 94, 0.08);
+  color: #ff4d6d;
+}
+
+/* ==========================================================================
+   3. INDEPENDENT MAIN WORKSPACE
+   ========================================================================== */
+.dashboard-main {
+  flex: 1;
+  margin-left: 260px; /* Offset spacing prevents sidebar content clipping */
+  padding: 50px 60px;
+  min-height: 100vh;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 44px;
+}
+
+.dashboard-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.dashboard-header .subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.header-badge {
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   4. METRICS METRIC CARDS ROW
+   ========================================================================== */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-bottom: 44px;
+}
+
+.stats-card {
+  padding: 24px;
+  border-radius: 16px;
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: left; /* Left align metrics for premium dashboard styling profiles */
+  transition: all 0.25s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 217, 255, 0.25);
+}
+
+.stats-card h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  background: linear-gradient(135deg, #ffffff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Contextual colored indicator rails per stat block */
+.stats-container .stats-card:nth-child(1) h2 { background: linear-gradient(135deg, #ffffff, #94a3b8); -webkit-background-clip: text; }
+.stats-container .stats-card:nth-child(2) h2 { background: linear-gradient(135deg, #ffb700, #ff7700); -webkit-background-clip: text; }
+.stats-container .stats-card:nth-child(3) h2 { background: linear-gradient(135deg, #00d9ff, #0077ff); -webkit-background-clip: text; }
+.stats-container .stats-card:nth-child(4) h2 { background: linear-gradient(135deg, #00ff88, #00aa50); -webkit-background-clip: text; }
+
+.stats-card p {
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   5. LOWER WORKSPACE: LIVE WORKFLOW MONITOR
+   ========================================================================== */
+.dashboard-split-workspace {
+  width: 100%;
+}
+
+.workspace-block {
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.block-title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.block-title-bar h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.internal-text-link {
+  color: #00d9ff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+.internal-text-link:hover {
+  text-decoration: underline;
+}
+
+/* Agenda list row layout frameworks */
+.agenda-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.agenda-row-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #161c2e; /* Internal module canvas row layer tracking */
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.client-info h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.client-info span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.schedule-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.timestamp {
+  font-size: 13px;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.mini-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.mini-badge.upcoming {
+  background: rgba(0, 184, 148, 0.08);
+  color: #00b894;
+}
+
+.mini-badge.pending-approval {
+  background: rgba(241, 196, 15, 0.08);
+  color: #f1c40f;
+}

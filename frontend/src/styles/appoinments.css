@@ -1,0 +1,203 @@
+/* ==========================================================================
+   1. CONTAINER LAYOUT HIERARCHY
+   ========================================================================== */
+.appointments-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: #e2e8f0;
+}
+
+.appointments-header {
+  margin-bottom: 36px;
+}
+
+.appointments-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff; /* Solves the unreadable text layout issue */
+  letter-spacing: -0.5px;
+}
+
+.appointments-header .subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   2. APPOINTMENTS RESPONSE GRID
+   ========================================================================== */
+.appointments-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+/* ==========================================================================
+   3. PREMIUM MANAGEMENT CONTAINER CARD
+   ========================================================================== */
+.appointment-card-premium {
+  background: #111625; /* Elevated base canvas color */
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  transition: all 0.2s ease;
+}
+
+.appointment-card-premium:hover {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.4);
+}
+
+/* Header Core Layout Group */
+.card-top-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.lawyer-meta h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff; /* Forces crisp visibility */
+  margin-bottom: 4px;
+}
+
+.lawyer-specialty {
+  font-size: 13px;
+  color: #00d9ff; /* Cyan accent for clear visual grouping */
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   4. COMPACT CHIP STATUS BADGES
+   ========================================================================== */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+/* Approved State Treatments */
+.status-badge.approved {
+  background: rgba(0, 184, 148, 0.08);
+  color: #00b894;
+  border: 1px solid rgba(0, 184, 148, 0.15);
+}
+.status-badge.approved .status-dot {
+  background: #00b894;
+  box-shadow: 0 0 8px #00b894;
+}
+
+/* Pending State Treatments */
+.status-badge.pending {
+  background: rgba(225, 112, 85, 0.08);
+  color: #e17055;
+  border: 1px solid rgba(225, 112, 85, 0.15);
+}
+.status-badge.pending .status-dot {
+  background: #e17055;
+  box-shadow: 0 0 8px #e17055;
+}
+
+/* ==========================================================================
+   5. INTERMEDIATE SCHEDULE GRID TIMELINE
+   ========================================================================== */
+.schedule-timeline-block {
+  display: flex;
+  background: #161c2e; /* Embedded deep card track box */
+  border-radius: 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.time-metric {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.time-metric:last-of-type {
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  padding-left: 16px;
+}
+
+.metric-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.metric-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+/* ==========================================================================
+   6. FUNCTIONAL CONTEXT CONTROLS
+   ========================================================================== */
+.appointment-actions-row {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Active primary buttons */
+.primary-action {
+  background: linear-gradient(135deg, #00d9ff, #0077ff);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 217, 255, 0.15);
+}
+.primary-action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 217, 255, 0.3);
+}
+
+/* Secondary outline utility links */
+.secondary-action {
+  background: rgba(255, 255, 255, 0.04);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.secondary-action:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+/* Non-interactive validation actions */
+.disabled-action {
+  background: rgba(255, 255, 255, 0.02);
+  color: #475569;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  cursor: not-allowed;
+}

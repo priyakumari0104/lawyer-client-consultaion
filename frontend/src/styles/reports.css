@@ -1,0 +1,262 @@
+/* ==========================================================================
+   1. FRAME CANVAS LAYOUT
+   ========================================================================== */
+.reports-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  color: #e2e8f0;
+}
+
+.reports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.reports-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.reports-header .subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Premium Back Button Utility Link */
+.back-dashboard-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #00d9ff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: rgba(0, 217, 255, 0.03);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  width: fit-content;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.back-dashboard-btn:hover {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff00c8, #00d9ff);
+  border-color: transparent;
+  transform: translateX(-4px);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+}
+
+/* Date Range Filter Selector */
+.time-filter-select {
+  background: #111625;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+}
+
+.time-filter-select:focus {
+  border-color: #00d9ff;
+}
+
+/* ==========================================================================
+   2. METRICS DISPLAY GRID
+   ========================================================================== */
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 24px;
+  margin-bottom: 44px;
+}
+
+.report-card-premium {
+  padding: 24px;
+  border-radius: 18px;
+  background: #111625; /* Elevated structural base panel */
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  text-align: left; /* Shift from generic center alignment to standard tracking */
+  transition: all 0.2s ease;
+}
+
+.report-card-premium:hover {
+  border-color: rgba(0, 217, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.report-card-premium h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Micro-Trend indicators metrics */
+.trend-indicator {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.trend-indicator.up {
+  background: rgba(0, 255, 136, 0.08);
+  color: #00ff88;
+}
+
+.metric-large-value {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  background: linear-gradient(135deg, #ffffff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Dynamic color gradients for monetary blocks */
+.reports-grid .report-card-premium:nth-child(4) .metric-large-value {
+  background: linear-gradient(135deg, #ff00c8, #00d9ff);
+  -webkit-background-clip: text;
+}
+
+.metric-subtext {
+  font-size: 12px;
+  color: #475569;
+}
+
+/* ==========================================================================
+   3. TRANSACTIONS METRIC AUDITING DATA TABLE
+   ========================================================================== */
+.analytics-lower-section {
+  width: 100%;
+}
+
+.transactions-audit-block {
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.block-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.live-pulse-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #00ff88;
+  font-weight: 600;
+  background: rgba(0, 255, 136, 0.05);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: #00ff88;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00ff88;
+}
+
+/* Table layout styling profiles */
+.audit-table-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.table-header-row, 
+.table-body-row {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 2fr 1.2fr 1.2fr;
+  padding: 14px 20px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.table-header-row {
+  color: #64748b;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 12px;
+}
+
+.table-body-row {
+  background: #161c2e; /* Nested element layer */
+  border-radius: 12px;
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.txn-id {
+  font-family: monospace;
+  color: #94a3b8;
+}
+
+.font-highlight {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.fee-highlight {
+  color: #00ff88;
+  font-weight: 600;
+}
+
+/* Mini status indicators badge pills */
+.status-pill {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.status-pill.settled {
+  background: rgba(0, 255, 136, 0.08);
+  color: #00ff88;
+}
+
+.status-pill.processing {
+  background: rgba(241, 196, 15, 0.08);
+  color: #f1c40f;
+}

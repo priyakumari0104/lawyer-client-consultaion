@@ -1,0 +1,125 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./pages/register";
+import Login from "./pages/login";
+import LandingPage from "./pages/LandingPage";
+import RoleSelect from "./pages/RoleSelect";
+import Clientdashboard from "./client/ClientDashboard";
+import Notifications from "./client/Notifications";
+import Profile from "./client/Profile";
+import Appointments from "./client/Appoinments";
+import FindLawyers from "./client/findLawyers";
+import Documents from "./client/Documents";
+import LawyerDashboard from "./lawyer/lawyerDashboard";
+import ClientRequests from "./lawyer/clientRequests";
+import LawyerAppointments from "./lawyer/lawyerAppoinments";
+import LawyerProfile from "./lawyer/lawyerProfile";
+import VerificationStatus from "./lawyer/verificationStatus";
+import AdminDashboard from "./admin/adminDashboard";
+import ManageUsers from "./admin/manageUsers";
+import VerifyLawyers from "./admin/verifyLawyers";
+import Reports from "./admin/reports";
+
+function App() {
+  return (
+   <BrowserRouter>
+
+  <Routes>
+
+    {/* PUBLIC ROUTES */}
+
+    <Route
+      path="/"
+      element={<LandingPage />}
+    />
+
+    <Route
+      path="/login"
+      element={<Login />}
+    />
+
+    <Route
+      path="/register"
+      element={<Register />}
+    />
+
+    <Route
+      path="/role-select"
+      element={<RoleSelect />}
+    />
+
+    {/* CLIENT ROUTES */}
+
+    <Route
+      path="/client/dashboard"
+      element={<Clientdashboard />}
+    />
+
+    <Route
+      path="/client/profile"
+      element={<Profile />}
+    />
+
+    <Route
+      path="/client/appointments"
+      element={<Appointments />}
+    />
+
+    <Route
+      path="/client/notifications"
+      element={<Notifications />}
+    />
+
+    <Route
+      path="/client/find-lawyers"
+      element={<FindLawyers />}
+    />
+    <Route
+      path="/client/documents"
+      element={<Documents />}
+    />
+// lawyer routes
+
+<Route
+      path="/lawyer/dashboard"
+      element={<LawyerDashboard />}
+    />
+
+  <Route
+      path="/lawyer/requests"
+      element={<ClientRequests />}
+    />
+<Route
+      path="/lawyer/appoinments"
+      element={<LawyerAppointments />}
+    />
+<Route
+      path="/lawyer/profile"
+      element={<LawyerProfile />}
+    />
+<Route
+      path="/lawyer/status"
+      element={<VerificationStatus />}
+    />
+<Route
+      path="/admin/dashboard"
+      element={<AdminDashboard />}
+    />
+<Route
+      path="/admin/reports"
+      element={<Reports />}
+    />
+<Route
+      path="/admin/verifylawyer"
+      element={<VerifyLawyers />}
+    />    
+<Route
+      path="/admin/manageusers"
+      element={<ManageUsers/>}
+    />    
+  </Routes>
+
+</BrowserRouter>
+  );
+}
+
+export default App;

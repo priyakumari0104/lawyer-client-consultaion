@@ -1,0 +1,141 @@
+/* ==========================================================================
+   1. MAIN WRAPPER & HEADER CONTEXT
+   ========================================================================== */
+.notifications-container {
+  width: 100%;
+  max-width: 800px; /* Constraining widths makes list elements look structured */
+  margin: 0 auto;
+  color: #e2e8f0;
+}
+
+.notifications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.notifications-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.notifications-header .subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.mark-all-read-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mark-all-read-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   2. LIST & PREMIUM ROW CARDS
+   ========================================================================== */
+.notification-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px; /* Slightly tighter gap looks cleaner for message items */
+}
+
+.notification-card-premium {
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: #111625; /* Use solid layer elevation blocks */
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: flex-start; /* Aligns items perfectly to the top of text */
+  gap: 18px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.notification-card-premium:hover {
+  background: #151b2e;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Visual highlights for unread status items */
+.notification-card-premium.unread {
+  background: rgba(0, 217, 255, 0.02);
+  border-color: rgba(0, 217, 255, 0.15);
+}
+
+/* ==========================================================================
+   3. INTERNAL ITEM LAYOUT COMPLIANCE
+   ========================================================================== */
+/* Icon Containers */
+.noti-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  font-size: 16px;
+  flex-shrink: 0; /* Prevents icon from compressing if lines wrap */
+}
+.success-icon { background: rgba(0, 255, 136, 0.08); border: 1px solid rgba(0, 255, 136, 0.15); }
+.warning-icon { background: rgba(255, 183, 0, 0.08); border: 1px solid rgba(255, 183, 0, 0.15); }
+.info-icon { background: rgba(0, 217, 255, 0.08); border: 1px solid rgba(0, 217, 255, 0.15); }
+
+/* Text Blocks Container */
+.noti-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.noti-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.noti-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.noti-time {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.noti-message {
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+/* Custom Live Indicator Dot positioning */
+.unread-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00d9ff;
+  align-self: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px #00d9ff;
+}

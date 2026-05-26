@@ -1,0 +1,269 @@
+/* ==========================================================================
+   1. MAIN PAGE CORE CONTAINER
+   ========================================================================== */
+.profile-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  color: #e2e8f0;
+  
+}
+
+.profile-header {
+  margin-bottom: 36px;
+  
+}
+
+.profile-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.profile-header .subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* Two-column dashboard split layout canvas */
+/* ==========================================================================
+   UPDATED: PROFILE LAYOUT GRID
+   ========================================================================== */
+.profile-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: start; /* CRITICAL: Allows sticky items to calculate heights correctly */
+}
+
+@media (min-width: 900px) {
+  .profile-layout-grid {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+/* ==========================================================================
+   UPDATED: STATIC STICKY AVATAR CARD
+   ========================================================================== */
+.profile-avatar-card {
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 36px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Makes the card snap and stay fixed on desktop viewports */
+  position: -webkit-sticky; /* Safari support */
+  position: sticky;
+  top: 40px; /* Distance from the top of the viewport when locked */
+  z-index: 10;
+}
+.avatar-wrapper {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px solid #00d9ff;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.profile-avatar-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-avatar-card h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.role-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(0, 217, 255, 0.08);
+  color: #00d9ff;
+  border: 1px solid rgba(0, 217, 255, 0.15);
+  margin-bottom: 28px;
+}
+
+/* Control Buttons States */
+.edit-toggle-btn, .save-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff00c8, #00d9ff);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-toggle-btn:hover, .save-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 217, 255, 0.3);
+}
+
+.form-action-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cancel-btn {
+  width: 100%;
+  padding: 11px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   3. EDITABLE FIELD MATRIX CONTAINER (RIGHT SIDE)
+   ========================================================================== */
+.profile-details-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.form-section {
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.form-section h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.input-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 600px) {
+  .input-fields-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Internal Field Component Elements */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group.full-width-field {
+  margin-top: 20px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input, 
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: #161c2e; /* Nested darker track inputs */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+  border-color: #00d9ff;
+  background: #182035;
+}
+
+/* Styles fields cleanly when in read-only validation state */
+.form-group input:disabled, 
+.form-group textarea:disabled {
+  background: rgba(255, 255, 255, 0.01);
+  border-color: transparent;
+  color: #94a3b8;
+  cursor: not-allowed;
+  padding-left: 0; /* Creates an text-label aesthetic when locked */
+}
+/* ==========================================================================
+   GLOBAL BACK TO DASHBOARD LINK UTILITY
+   ========================================================================== */
+.back-dashboard-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #00d9ff; /* Bright readable cyan */
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: rgba(0, 217, 255, 0.03);
+  border: 1px solid rgba(0, 217, 255, 0.2); /* Soft cyan border */
+  width: fit-content;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.back-dashboard-btn:hover {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff00c8, #00d9ff); /* Matches your gradient look on hover */
+  border-color: transparent;
+  transform: translateX(-4px);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+}
+
+.back-dashboard-btn .arrow {
+  font-size: 16px;
+}
+.back-dashboard-btn .arrow {
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.back-dashboard-btn:hover .arrow {
+  transform: translateX(-2px); /* Moves arrow slightly further back on hover */
+}
