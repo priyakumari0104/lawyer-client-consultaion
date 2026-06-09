@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/clientRequests.css";
-
+import {Link} from "react-router-dom";
 const ClientRequests = () => {
   // Using state so the accept/reject buttons actually update the UI interactively
   const [requests, setRequests] = useState([
@@ -16,6 +16,9 @@ const ClientRequests = () => {
 
   return (
     <div className="requests-container">
+       <Link to="/lawyer/dashboard" className="back-dashboard-btn">
+        <span className="arrow">←</span> Back to Dashboard
+      </Link>
       <div className="requests-header">
         <div>
           <h1>Client Requests</h1>

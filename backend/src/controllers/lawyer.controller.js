@@ -247,7 +247,25 @@ async function(req,res){
     })
   }
  }
-
+ const getAllLawyers= async (req,res)=>{
+  try{
+     const allLawyers= await lawyermodel.find({
+      verificationStatus:"pending"
+     })
+      res.status(200).json({
+        message:"all lawyers fetched",
+         success:true,
+         allLawyers
+      })
+  }
+  catch(error){
+     console.log(error);
+      res.status(500).json({
+        message:error.message,
+        success:false
+      })
+  }
+ }
 module.exports = {
-  lawyerregister,lawyerUpdate
+  lawyerregister,lawyerUpdate,getAllLawyers
 };

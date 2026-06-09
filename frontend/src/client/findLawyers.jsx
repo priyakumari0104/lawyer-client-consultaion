@@ -1,37 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import "../styles/findLawyers.css";
-import{Link} from "react-router-dom"
+
 const FindLawyers = () => {
-  const lawyers = [
-    {
-      id: 1,
-      name: "Adv. Rahul Sharma",
-      specialization: "Criminal Lawyer",
-      experience: "5 Years",
-      fee: "₹1,500"
-    },
-    {
-      id: 2,
-      name: "Adv. Priya Verma",
-      specialization: "Corporate Lawyer",
-      experience: "7 Years",
-      fee: "₹2,500"
-    },
-    {
-      id: 3,
-      name: "Adv. Aman Gupta",
-      specialization: "Divorce Lawyer",
-      experience: "4 Years",
-      fee: "₹1,200"
+  const [lawyers, setLawyers] = useState([]);
+
+  const fetchLawyers = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/api/lawyer/all");
+      setLawyers(res.data.allLawyers);
+    } catch (error) {
+      console.error("Failed to retrieve legal roster:", error);
     }
-  ];
+  };
+
+  // FIXED: Added an empty dependency array [] to prevent server call loops
+  useEffect(() => {
+    fetchLawyers();
+  }, []);
 
   return (
     <div className="findlawyers-container">
-       {/* 🌟 NEW: Elegant Back to Dashboard Trigger */}
+      {/* Elegant Back to Dashboard Trigger */}
       <Link to="/client/dashboard" className="back-dashboard-btn">
         <span className="arrow">←</span> Back to Dashboard
       </Link>
+
       {/* Top Bar with Page Actions */}
       <div className="findlawyers-header">
         <div>
@@ -40,28 +35,27 @@ const FindLawyers = () => {
         </div>
         <div className="search-wrapper">
           <span className="search-icon">🔍</span>
-          <input
-            type="text"
-            placeholder="Search lawyer by specialization..."
-          />
+          <input type="text" placeholder="Search lawyer by specialization..." />
         </div>
       </div>
 
       {/* Grid Canvas */}
       <div className="lawyers-grid">
-        {lawyers.map((lawyer) => (
-          <div className="lawyer-card-premium" key={lawyer.id}>
+        {lawyers.map((item) => (
+          // Using item._id from your MongoDB Mongoose document
+          <div className="lawyer-card-premium" key={item._id}>
             
             {/* Profile Core Segment */}
             <div className="profile-wrapper">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png"
-                alt={lawyer.name}
+                alt={item.name}
+                className="lawyer-avatar"
               />
-              <h2>{lawyer.name}</h2>
+              <h2>{item.name}</h2>
               {/* Specialized Tagging Badge System */}
-              <span className={`specialization-tag ${lawyer.specialization.toLowerCase().replace(" ", "-")}`}>
-                {lawyer.specialization}
+              <span className={`specialization-tag ${(item.specialization || "general").toLowerCase().replace(/\s+/g, "-")}`}>
+                {item.specialization}
               </span>
             </div>
 
@@ -69,18 +63,27 @@ const FindLawyers = () => {
             <div className="metadata-row">
               <div className="meta-block">
                 <span className="meta-label">Experience</span>
-                <span className="meta-value">{lawyer.experience}</span>
+                <span className="meta-value">{item.experience} Yrs</span>
               </div>
               <div className="meta-block">
                 <span className="meta-label">Consultation Fee</span>
-                <span className="meta-value fee-highlight">{lawyer.fee}</span>
+                <span className="meta-value fee-highlight">₹{item.consultationFee}</span>
               </div>
             </div>
 
-            {/* Call to Action Button */}
-            <button className="book-btn">
-              Book Consultation
-            </button>
+            {/* UPGRADED: Dual Action Button Row */}
+            <div className="card-action-row">
+              {/* View Profile Viewport Route */}
+              <Link to={`/client/lawyer-profile/${item._id}`} className="view-profile-btn">
+                🔍 View Profile
+              </Link>
+              
+              {/* Dynamic Intake Form Route (Passes the explicit ID via params) */}
+              <Link to={`/client/bookappoinment/${item._id}`} className="book-btn-link">
+                <button className="book-btn">Request</button>
+              </Link>
+            </div>
+
           </div>
         ))}
       </div>

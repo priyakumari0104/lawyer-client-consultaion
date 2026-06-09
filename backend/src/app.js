@@ -3,7 +3,7 @@
  const connectDB = require('./db/db');
 const registerRoutes = require('./routes/register.routes');
 const lawyerRoutes = require('./routes/lawyer.route');
- 
+const bookAppoinments= require('./routes/bookappoinments.route')
  const authRoutes = require('./routes/auth.route');
  const cors = require('cors');
 require('dotenv').config();
@@ -16,6 +16,7 @@ app.use(cors());
   app.use("/api/client",registerRoutes);
    app.use("/api/lawyer",lawyerRoutes);
     app.use("/api/auth",authRoutes);
+    app.use("/api/appoinment",bookAppoinments);
  connectDB();
   app.get("/",(req,res)=>{
     res.send("Hello World");

@@ -34,5 +34,6 @@ router.post(
   lawyercontroller.lawyerregister
 );
 
- router.put("/update/:id",lawyercontroller.lawyerUpdate)
+ router.put("/update/:id",lawyercontroller.lawyerUpdate);
+ router.get("/all",lawyercontroller.getAllLawyers);
 module.exports = router;

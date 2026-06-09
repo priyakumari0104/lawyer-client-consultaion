@@ -18,6 +18,7 @@ import AdminDashboard from "./admin/adminDashboard";
 import ManageUsers from "./admin/manageUsers";
 import VerifyLawyers from "./admin/verifyLawyers";
 import Reports from "./admin/reports";
+import BookAppointment from "./client/bookAppoinments";
 
 function App() {
   return (
@@ -76,6 +77,10 @@ function App() {
     <Route
       path="/client/documents"
       element={<Documents />}
+    />
+    <Route
+      path="/client/bookappoinment"
+      element={<BookAppointment />}
     />
 // lawyer routes
 

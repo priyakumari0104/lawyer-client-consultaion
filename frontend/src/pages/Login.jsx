@@ -8,6 +8,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+   const [loading,setLoading]=useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -19,9 +20,11 @@ const Login = () => {
   const   handleSubmit =  async (e) => {
     e.preventDefault();
      try{
+      setLoading(true);
        const res=  await axios.post("http://localhost:3000/api/auth/login",formData);
        localStorage.setItem("token",res.data.token);
        localStorage.setItem("user",JSON.stringify(res.data.user));
+       setLoading(false);
        alert(res.data.message);
        if(res.data.role==="client"){
          navigate("/client/dashboard");
@@ -31,6 +34,8 @@ const Login = () => {
      }
 catch(err){
   console.log(err);
+       setLoading(false);
+
   alert(err.response?.data?.message);
 }
   }
@@ -66,8 +71,8 @@ catch(err){
             onChange={handleChange}
           />
 
-          <button type="submit">
-            Login
+          <button type="submit" disabled={loading}>
+            {loading? "logging in...":"Login"}
           </button>
 
 <Link
