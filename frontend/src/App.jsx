@@ -6,7 +6,6 @@ import RoleSelect from "./pages/RoleSelect";
 import Clientdashboard from "./client/ClientDashboard";
 import Notifications from "./client/Notifications";
 import Profile from "./client/Profile";
-import Appointments from "./client/Appoinments";
 import FindLawyers from "./client/findLawyers";
 import Documents from "./client/Documents";
 import LawyerDashboard from "./lawyer/lawyerDashboard";
@@ -18,7 +17,10 @@ import AdminDashboard from "./admin/adminDashboard";
 import ManageUsers from "./admin/manageUsers";
 import VerifyLawyers from "./admin/verifyLawyers";
 import Reports from "./admin/reports";
-
+import BookAppointment from "./client/BookAppoinments";
+import Myappointments from "./client/myAppointments";
+import Chat from "./pages/Chatbox";
+import { useEffect } from "react";
 function App() {
   return (
    <BrowserRouter>
@@ -46,6 +48,10 @@ function App() {
       path="/role-select"
       element={<RoleSelect />}
     />
+    <Route
+  path="/chat/:appointmentId"
+  element={<Chat />}
+/>
 
     {/* CLIENT ROUTES */}
 
@@ -58,11 +64,11 @@ function App() {
       path="/client/profile"
       element={<Profile />}
     />
-
-    <Route
+<Route
       path="/client/appointments"
-      element={<Appointments />}
+      element={<Myappointments />}
     />
+    
 
     <Route
       path="/client/notifications"
@@ -77,6 +83,11 @@ function App() {
       path="/client/documents"
       element={<Documents />}
     />
+    <Route
+    path="/client/book-appointment/:lawyerId"
+    element={<BookAppointment/>}
+    />
+    
 // lawyer routes
 
 <Route
@@ -100,6 +111,7 @@ function App() {
       path="/lawyer/status"
       element={<VerificationStatus />}
     />
+  // admin
 <Route
       path="/admin/dashboard"
       element={<AdminDashboard />}

@@ -1,19 +1,26 @@
 /* ==========================================================================
-   1. MAIN CANVAS & HEADERS
+   1. CORE REGISTRATION BOXING CANVAS
    ========================================================================== */
 .appointments-container {
   width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 24px;
   color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .appointments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 24px;
 }
 
 .appointments-header h1 {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: -0.5px;
@@ -22,156 +29,181 @@
 .appointments-header .subtitle {
   color: #64748b;
   font-size: 14px;
-  margin-top: 6px;
+  margin-top: 4px;
+}
+
+.schedule-count-pill {
+  background: rgba(0, 255, 136, 0.06);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.15);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.back-dashboard-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.back-dashboard-btn:hover {
+  color: #00d9ff;
+  transform: translateX(-4px);
 }
 
 /* ==========================================================================
-   2. LAWYER APPOINTMENTS GRID ENVIRONMENT
+   2. INTERACTIVE EXECUTIVE CARDS LISTING SYSTEM
    ========================================================================== */
 .appointments-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 24px;
 }
 
-/* ==========================================================================
-   3. PREMIUM APPOINTMENT CARD ARCHITECTURE
-   ========================================================================== */
 .appointment-card-premium {
-  background: #111625; /* Elevated level 2 solid background block */
+  background: #111625; /* Elevated structural base layer token */
   border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 20px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 20px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .appointment-card-premium:hover {
-  border-color: rgba(0, 217, 255, 0.25);
-  box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.5);
-  transform: translateY(-2px);
+  border-color: rgba(0, 217, 255, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
-/* Header Grid Row Split */
 .card-header-group {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .client-meta h2 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
-  color: #ffffff; /* Crisp high contrast white color profile */
-  margin-bottom: 4px;
+  color: #ffffff;
+  margin-bottom: 6px;
 }
 
 .case-type-badge {
-  font-size: 12px;
-  font-weight: 500;
-  color: #00d9ff; /* Focus accent coloration */
+  font-size: 11px;
+  font-weight: 700;
+  color: #00d9ff;
+  background: rgba(0, 217, 255, 0.06);
+  padding: 3px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* ==========================================================================
-   4. CHIP BADGES FOR SLOT LIVE STATUSES
-   ========================================================================== */
-.status-badge-chip {
+/* Specific Confirmed Signal Tracking Tag */
+.status-badge-chip.active-confirmed {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
-  border-radius: 20px;
+  background: rgba(0, 255, 136, 0.06);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.15);
+  padding: 4px 12px;
+  border-radius: 12px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .status-dot {
   width: 6px;
   height: 6px;
+  background: #00ff88;
   border-radius: 50%;
-}
-
-/* Confirmed/Upcoming State style rules */
-.status-badge-chip.upcoming {
-  background: rgba(0, 184, 148, 0.08);
-  color: #00b894;
-  border: 1px solid rgba(0, 184, 148, 0.15);
-}
-.status-badge-chip.upcoming .status-dot {
-  background: #00b894;
-  box-shadow: 0 0 8px #00b894;
-}
-
-/* Pending State style rules */
-.status-badge-chip.pending {
-  background: rgba(241, 196, 15, 0.08);
-  color: #f1c40f;
-  border: 1px solid rgba(241, 196, 15, 0.15);
-}
-.status-badge-chip.pending .status-dot {
-  background: #f1c40f;
-  box-shadow: 0 0 8px #f1c40f;
+  box-shadow: 0 0 8px #00ff88;
 }
 
 /* ==========================================================================
-   5. TIMELINE TIME/DATE SPECIFICATION BLOCK
+   3. HORIZONTAL METADATA SEGMENTS
    ========================================================================== */
 .schedule-timeline-track {
-  display: flex;
-  background: #161c2e; /* Deep box background contrast layer */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #161c2e; /* Secondary nested input dark box */
+  padding: 16px;
   border-radius: 12px;
-  padding: 14px 16px;
   border: 1px solid rgba(255, 255, 255, 0.02);
+  margin-bottom: 20px;
 }
 
 .time-block {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.time-block:last-of-type {
-  border-left: 1px solid rgba(255, 255, 255, 0.06);
-  padding-left: 16px;
+.time-block:first-child {
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  padding-right: 16px;
+}
+
+.time-block:last-child {
+  padding-left: 24px;
 }
 
 .block-label {
-  font-size: 11px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #475569;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #64748b;
-  font-weight: 600;
 }
 
 .block-value {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: #cbd5e1;
 }
 
+/* CASE CONTEXT CONTAINER DOCK */
+.case-brief-dock {
+  margin-bottom: 24px;
+}
+
+.case-brief-dock h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #475569;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.brief-clamped-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
 /* ==========================================================================
-   6. CONTEXTUAL ACTION CONTROL MECHANICS
+   4. ASYMMETRIC CONTROL FOOTER ACTION BUTTONS
    ========================================================================== */
 .appointment-action-footer {
-  width: 100%;
-}
-
-.split-action-row {
   display: flex;
-  gap: 10px;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding-top: 20px;
 }
 
-.action-btn {
-  width: 100%;
-  padding: 12px;
-  border: none;
+.action-btn, .secondary-action-btn {
+  padding: 12px 20px;
   border-radius: 10px;
   font-size: 13px;
   font-weight: 600;
@@ -179,34 +211,81 @@
   transition: all 0.2s ease;
 }
 
-/* Primary Teleconference Video Launcher Button */
-.primary-video-btn {
-  background: linear-gradient(135deg, #ff00c8, #00d9ff);
+.primary-chat-btn {
+  background: linear-gradient(135deg, #00d9ff, #0077ff);
   color: #ffffff;
-  box-shadow: 0 4px 14px rgba(0, 217, 255, 0.2);
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 217, 255, 0.15);
 }
-.primary-video-btn:hover {
+
+.primary-chat-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 217, 255, 0.35);
+  box-shadow: 0 6px 16px rgba(0, 217, 255, 0.35);
 }
 
-/* Manual State Triggers Buttons */
-.accept-btn {
-  background: rgba(0, 184, 148, 0.1);
-  color: #00b894;
-  border: 1px solid rgba(0, 184, 148, 0.2);
-}
-.accept-btn:hover {
-  background: #00b894;
-  color: #ffffff;
-}
-
-.decline-btn {
-  background: rgba(255, 255, 255, 0.03);
+.secondary-action-btn {
+  background: rgba(255, 255, 255, 0.02);
   color: #94a3b8;
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
-.decline-btn:hover {
-  background: rgba(255, 255, 255, 0.06);
+
+.secondary-action-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
   color: #ffffff;
+}
+
+/* ==========================================================================
+   5. ZERO APP PANELS (EMPTY VIEWPORTS)
+   ========================================================================== */
+.empty-schedule-state {
+  text-align: center;
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  padding: 60px 40px;
+}
+
+.empty-calendar-icon {
+  font-size: 44px;
+  margin-bottom: 16px;
+}
+
+.empty-schedule-state h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.empty-schedule-state p {
+  font-size: 14px;
+  color: #64748b;
+  max-width: 400px;
+  margin: 0 auto;
+}
+/* ==========================================================================
+   INLINE READ MORE / LESS INTERACTIONS
+   ========================================================================== */
+.read-more-toggle-btn {
+  background: none;
+  border: none;
+  color: #00d9ff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 6px;
+  text-decoration: underline;
+  display: inline-block;
+  transition: color 0.2s ease;
+}
+
+.read-more-toggle-btn:hover {
+  color: #ffffff;
+}
+
+/* Ensure the wrapper text spaces gracefully when fully opened */
+.brief-clamped-text {
+  white-space: pre-wrap; /* Preserves client's natural spacing and paragraphs */
+  word-break: break-word;
 }

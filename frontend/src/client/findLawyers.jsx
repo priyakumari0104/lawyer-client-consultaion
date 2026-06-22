@@ -1,30 +1,23 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import "../styles/findLawyers.css";
-import{Link} from "react-router-dom"
+import{Link,useNavigate} from "react-router-dom";
+import axios from "axios";
 const FindLawyers = () => {
-  const lawyers = [
-    {
-      id: 1,
-      name: "Adv. Rahul Sharma",
-      specialization: "Criminal Lawyer",
-      experience: "5 Years",
-      fee: "₹1,500"
-    },
-    {
-      id: 2,
-      name: "Adv. Priya Verma",
-      specialization: "Corporate Lawyer",
-      experience: "7 Years",
-      fee: "₹2,500"
-    },
-    {
-      id: 3,
-      name: "Adv. Aman Gupta",
-      specialization: "Divorce Lawyer",
-      experience: "4 Years",
-      fee: "₹1,200"
+  const navigate=useNavigate();
+  const[lawyers,setLawyers]=useState([]);
+   const verifiedlawyers= async()=>{
+    try{
+      const response= await axios.get("http://localhost:3000/api/lawyer/verified-lawyer");
+        setLawyers(response.data.lawyer);
+        console.log(response.data);
+    }catch(error){
+console.log(error);
     }
-  ];
+   }
+   useEffect(()=>{
+    verifiedlawyers();
+   },[]);
+ 
 
   return (
     <div className="findlawyers-container">
@@ -50,7 +43,7 @@ const FindLawyers = () => {
       {/* Grid Canvas */}
       <div className="lawyers-grid">
         {lawyers.map((lawyer) => (
-          <div className="lawyer-card-premium" key={lawyer.id}>
+          <div className="lawyer-card-premium" key={lawyer._id}>
             
             {/* Profile Core Segment */}
             <div className="profile-wrapper">
@@ -78,7 +71,10 @@ const FindLawyers = () => {
             </div>
 
             {/* Call to Action Button */}
-            <button className="book-btn">
+            <button className="book-btn" onClick={() => {
+      console.log("Selected lawyer:", lawyer);
+      navigate(`/client/book-appointment/${lawyer._id}`);
+    }}>
               Book Consultation
             </button>
           </div>

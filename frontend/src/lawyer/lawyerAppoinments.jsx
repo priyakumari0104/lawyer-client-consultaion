@@ -1,87 +1,160 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/lawyerAppoinments.css";
+import axios from "axios";
+
+// 🌟 NESTED SUB-COMPONENT: Manages "Read More" individually for each card
+const DescriptionBlock = ({ text }) => {
+  
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  if (!text)
+    return (
+      <p className="brief-clamped-text">
+        No supplementary background brief was declared.
+      </p>
+    );
+
+  // Set the character threshold (e.g., 150 characters)
+  const characterLimit = 150;
+  const isLongText = text.length > characterLimit;
+
+  return (
+    <div className="case-brief-dock">
+      <h4>Submitted Brief Summary</h4>
+      <p className="brief-clamped-text">
+        {isExpanded || !isLongText
+          ? text
+          : `${text.substring(0, characterLimit)}...`}
+
+        {isLongText && (
+          <button
+            type="button"
+            className="read-more-toggle-btn"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            {isExpanded ? " Show Less" : " Read More"}
+          </button>
+        )}
+      </p>
+    </div>
+  );
+};
 
 const LawyerAppointments = () => {
-  // Simulating real-time backend data models with statuses and case details
-  const appointments = [
-    {
-      id: 1,
-      client: "Nitya Sharma",
-      caseType: "Property Dispute Consultation",
-      date: "25 May 2026",
-      time: "5:00 PM",
-      status: "upcoming"
-    },
-    {
-      id: 2,
-      client: "Aman Gupta",
-      caseType: "Corporate Contract Review",
-      date: "28 May 2026",
-      time: "7:00 PM",
-      status: "pending"
+  const [appointments, setAppointments] = useState([]);
+const navigate = useNavigate();
+  const approvedrequests = async () => {
+    try {
+      const lawyer = JSON.parse(localStorage.getItem("user"));
+      if (!lawyer?._id) return;
+
+      const response = await axios.get(
+        `http://localhost:3000/api/appointment/approved/${lawyer._id}`,
+      );
+      setAppointments(response.data.requests || []);
+    } catch (error) {
+      console.error("Error retrieving active appointments:", error);
     }
-  ];
+  };
+
+  useEffect(() => {
+    approvedrequests();
+  }, []);
 
   return (
     <div className="appointments-container">
-      {/* Back to Dashboard Accent Link */}
       <Link to="/lawyer/dashboard" className="back-dashboard-btn">
         <span className="arrow">←</span> Back to Dashboard
       </Link>
 
-      {/* Main Header */}
       <div className="appointments-header">
-        <h1>Lawyer Appointments</h1>
-        <p className="subtitle">Review and manage your real-time client consultation schedule</p>
+        <div>
+          <h1>Active Consultations</h1>
+          <p className="subtitle">
+            Review your upcoming confirmed schedule and open secure client
+            communication briefs.
+          </p>
+        </div>
+        <span className="schedule-count-pill">
+          {appointments.length} Confirmed
+        </span>
       </div>
 
-      {/* Dashboard Canvas Grid */}
-      <div className="appointments-list">
-        {appointments.map((item) => (
-          <div className="appointment-card-premium" key={item.id}>
-            
-            {/* Top Row: Client Info & Status Badge */}
-            <div className="card-header-group">
-              <div className="client-meta">
-                <h2>{item.client}</h2>
-                <span className="case-type-badge">{item.caseType}</span>
-              </div>
-              <span className={`status-badge-chip ${item.status}`}>
-                <span className="status-dot"></span>
-                {item.status === "upcoming" ? "Confirmed" : "Pending"}
-              </span>
-            </div>
-
-            {/* Middle Row: Embedded Schedule Track Box */}
-            <div className="schedule-timeline-track">
-              <div className="time-block">
-                <span className="block-label">Date</span>
-                <span className="block-value">📅 {item.date}</span>
-              </div>
-              <div className="time-block">
-                <span className="block-label">Scheduled Time</span>
-                <span className="block-value">🕒 {item.time}</span>
-              </div>
-            </div>
-
-            {/* Bottom Row: Dynamic Context Controls */}
-            <div className="appointment-action-footer">
-              {item.status === "upcoming" ? (
-                <button className="action-btn primary-video-btn">
-                  🎥 Launch Video Room
-                </button>
-              ) : (
-                <div className="split-action-row">
-                  <button className="action-btn accept-btn">Approve Slot</button>
-                  <button className="action-btn decline-btn">Reschedule</button>
+      {appointments.length === 0 ? (
+        <div className="empty-schedule-state">
+          <div className="empty-calendar-icon">📅</div>
+          <h3>No Confirmed Consultations</h3>
+          <p>
+            Approved appointments and scheduled slots will populate directly
+            within this workspace panel.
+          </p>
+        </div>
+      ) : (
+        <div className="appointments-list">
+          {appointments.map((item) => (
+            <div className="appointment-card-premium" key={item._id}>
+              {/* TOP PROFILE & STATE BADGE ROW */}
+              <div className="card-header-group">
+                <div className="client-meta">
+                  <h2>{item.clientId?.fullName || "Verified Client"}</h2>
+                  <span className="case-type-badge">{item.issueType}</span>
                 </div>
-              )}
-            </div>
+                <span className="status-badge-chip active-confirmed">
+                  <span className="status-dot"></span>
+                  Confirmed
+                </span>
+              </div>
 
-          </div>
-        ))}
-      </div>
+              {/* SCHEDULE TIMELINE DOCK */}
+              <div className="schedule-timeline-track">
+                <div className="time-block">
+                  <span className="block-label">Consultation Date</span>
+                  <span className="block-value">
+                    📅{" "}
+                    {new Date(item.createdAt).toLocaleDateString(undefined, {
+                      weekday: "short",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </span>
+                </div>
+                <div className="time-block">
+                  <span className="block-label">Session Window</span>
+                  <span className="block-value">
+                    🕒{" "}
+                    {new Date(item.createdAt).toLocaleTimeString(undefined, {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </span>
+                </div>
+              </div>
+
+              {/* NEW RENDER BLOCK: Includes individual Read More handling */}
+              <DescriptionBlock text={item.description} />
+
+              {/* FUTURE-PROOF FOOTER ACTIONS */}
+              <div className="appointment-action-footer">
+                <button
+                  className="secondary-action-btn disabled-placeholder"
+                  disabled
+                >
+                  📁 0 Files Attached
+                </button>
+                <button
+                  className="action-btn primary-chat-btn"
+                  onClick={() => {
+                    navigate(`/chat/${item._id}`);
+                  }}
+                >
+                  💬 Launch Secure Chat Room
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

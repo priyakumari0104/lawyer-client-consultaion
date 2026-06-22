@@ -1,23 +1,27 @@
- const express = require('express');
- const cookieparser= require('cookie-parser');
- const connectDB = require('./db/db');
-const registerRoutes = require('./routes/register.routes');
-const lawyerRoutes = require('./routes/lawyer.route');
- 
- const authRoutes = require('./routes/auth.route');
- const cors = require('cors');
-require('dotenv').config();
- const app=express();
- app.use(express.json());
-app.use(cors());
- app.use(cookieparser());
+const express = require("express");
+const app = express();
+const cookieparser = require("cookie-parser");
+const connectDB = require("./db/db");
+const registerRoutes = require("./routes/register.routes");
+const lawyerRoutes = require("./routes/lawyer.route");
+const adminroute = require("./routes/admin.route");
+const authRoutes = require("./routes/auth.route");
+const appointmentroute = require("./routes/appointment.route");
+const messageroute= require("./routes/message.route");
+const cors = require("cors");
 
- app.use(express.urlencoded({ extended: true }));
-  app.use("/api/client",registerRoutes);
-   app.use("/api/lawyer",lawyerRoutes);
-    app.use("/api/auth",authRoutes);
- connectDB();
-  app.get("/",(req,res)=>{
-    res.send("Hello World");
-  })
-  module.exports=app;
+require("dotenv").config();
+app.use(express.json());
+app.use(cors());
+app.use(cookieparser());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/api/client", registerRoutes);
+app.use("/api/lawyer", lawyerRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminroute);
+app.use("/api/appointment", appointmentroute);
+app.use("/api/chat",messageroute);
+connectDB();
+
+module.exports = app;

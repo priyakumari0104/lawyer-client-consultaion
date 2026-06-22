@@ -1,63 +1,138 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import "../styles/clientRequests.css";
 
 const ClientRequests = () => {
-  // Using state so the accept/reject buttons actually update the UI interactively
-  const [requests, setRequests] = useState([
-    { id: 1, client: "Nitya Sharma", issue: "Property Dispute", date: "Received 2 hours ago" },
-    { id: 2, client: "Rahul Verma", issue: "Divorce Case", date: "Received Yesterday" }
-  ]);
+  const [requests, setRequests] = useState([]);
+  const [isProcessing, setIsProcessing] = useState(null); // Tracks button loaders
 
-  const handleAction = (id, action) => {
-    // Mimic real database action by filtering out or updating the request status
-    setRequests(prev => prev.filter(req => req.id !== id));
-    console.log(`Request ${id} was ${action}ed`);
+  const fetchPendingRequests = async () => {
+    try {
+      const lawyer = JSON.parse(localStorage.getItem("user"));
+      if (!lawyer?._id) return;
+      
+      const response = await axios.get(`http://localhost:3000/api/appointment/pending/${lawyer._id}`);
+      console.log(response.data.requests);
+      setRequests(response.data.requests || []);
+    } catch (error) {
+      console.error("Failed to fetch client inquiries:", error);
+    }
   };
+
+  useEffect(() => {
+    fetchPendingRequests();
+  }, []);
+
+  // UPDATED: Connected your frontend buttons to handle active server or state updates
+ const approveRequest = async (id) => {
+  try {
+    setIsProcessing(id);
+
+    const response = await axios.put(
+      `http://localhost:3000/api/appointment/approve/${id}`
+    );
+
+    alert(response.data.message);
+
+    fetchPendingRequests();
+
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setIsProcessing(null);
+  }
+};
+const rejectRequest = async (id) => {
+  try {
+    setIsProcessing(id);
+
+    const response = await axios.put(
+      `http://localhost:3000/api/appointment/reject/${id}`
+    );
+
+    alert(response.data.message);
+
+    fetchPendingRequests();
+
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setIsProcessing(null);
+  }
+};
 
   return (
     <div className="requests-container">
+      {/* Return to Dashboard Header utility link */}
+      <Link to="/lawyer/dashboard" className="back-dashboard-btn">
+        <span className="arrow">←</span> Back to Dashboard
+      </Link>
+
       <div className="requests-header">
         <div>
-          <h1>Client Requests</h1>
-          <p className="subtitle">Review and manage incoming consultation inquiries.</p>
+          <h1>Client Consultations</h1>
+          <p className="subtitle">Audit preliminary intake files, review conflict checks, and accept case assignments.</p>
         </div>
-        <span className="badge">{requests.length} Pending</span>
+        <span className="badge-pulse-counter">{requests.length} Inbound</span>
       </div>
 
       {requests.length === 0 ? (
-        <div className="empty-state">
-          <p>All caught up! No pending requests.</p>
+        <div className="empty-state-card">
+          <div className="empty-icon">📁</div>
+          <h3>Queue Fully Cleared</h3>
+          <p>All client intake forms have been verified. No pending items require attention.</p>
         </div>
       ) : (
         <div className="requests-list">
           {requests.map((item) => (
-            <div className="request-card" key={item.id}>
-              <div className="card-header">
-                <h2>{item.client}</h2>
-                <span className="timestamp">{item.date}</span>
-              </div>
+            <div className="request-card-premium" key={item._id}>
               
-              <div className="card-body">
-                <span className="tag">Issue</span>
-                <p className="issue-text">{item.issue}</p>
+              {/* Left Column: Client metadata details */}
+              <div className="card-profile-section">
+                <div className="client-meta-header">
+                  <h2>{item.clientId?.fullName || "Anonymous Client"}</h2>
+                  <span className="timestamp-badge">
+                    ⏱️ Received: {new Date(item.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
+                
+                {/* Specific Emphasis: Bold Category Title */}
+                <div className="issue-type-highlight">
+                  {item.issueType || "General Consultation"}
+                </div>
+                
+                {/* Clean, descriptive small-font summary */}
+                <p className="case-description-text">
+                  {item.description}
+                </p>
               </div>
 
-              <div className="request-buttons">
-                <button 
-                  className="btn-reject" 
-                  onClick={() => handleAction(item.id, "reject")}
-                  aria-label="Decline request"
-                >
-                  Decline
-                </button>
-                <button 
-                  className="btn-accept" 
-                  onClick={() => handleAction(item.id, "accept")}
-                  aria-label="Accept request"
-                >
-                  Accept Case
-                </button>
+              {/* Right Column: Interactive Processing Panel */}
+              <div className="card-control-panel">
+                <span className={`status-pill ${item.status?.toLowerCase() || "pending"}`}>
+                  {item.status || "Pending Review"}
+                </span>
+
+                <div className="request-action-buttons">
+                  <button
+                    className="btn-reject"
+                    disabled={isProcessing === item._id}
+                   onClick={() => rejectRequest(item._id)}
+                  >
+                    Decline
+                  </button>
+
+                  <button
+                    className="btn-accept"
+                    disabled={isProcessing === item._id}
+                    onClick={() => approveRequest(item._id)}
+                  >
+                    Accept Case
+                  </button>
+                </div>
               </div>
+
             </div>
           ))}
         </div>

@@ -231,6 +231,7 @@ async function(req,res){
 
   }
 };
+// update lawyers profile
  const lawyerUpdate= async (req,res)=>{
    try{const lawyer= await lawyermodel.findByIdAndUpdate(
     req.params.id,req.body ,{new:true}
@@ -247,7 +248,40 @@ async function(req,res){
     })
   }
  }
+ //fetchng all verified lawyers to view 
+ const verifiedlawyers= async (req,res)=>{
+  try{
+    const lawyer= await lawyermodel.find({
+    verificationStatus:"verified"
+  });
+  res.status(200).json({
+    message:"verified lawyersfetched succesfully",
+    success:true,
+    lawyer
+  })
+  }catch(error){
+    res.status(500).json({
+      message:error.message,
+      success:false
+    })
+  }
+ }
+ const lawyerById=async(req,res)=>{
+  try{
+    const lawyer=await lawyermodel.findById(req.params.id);
+    res.status(200).json({
+      message:"lawyer details fetched successfully",
+      success:true,
+      lawyer
+    })
+  }catch(error){
+    res.status(500).json({
+      message:error.message,
+      success:false
+    })
+  }
+ }
 
 module.exports = {
-  lawyerregister,lawyerUpdate
+  lawyerregister,lawyerUpdate,verifiedlawyers,lawyerById
 };

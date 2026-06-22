@@ -1,42 +1,42 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/verifyLawyers.css";
+import axios from "axios";
+// import { getpendinglawyer } from "../../../backend/src/controllers/admin.controller";
+// import { response } from "../../../backend/src/app";
 
 const VerifyLawyers = () => {
   // Simulating the full Mongoose dataset fields coming from your lawyer model
-  const [lawyers, setLawyers] = useState([
-    {
-      id: 1,
-      name: "Adv. Rahul Sharma",
-      specialization: "Criminal Lawyer",
-      experience: "5 Years",
-      barCouncilId: "BAR/DL/2021/8942",
-      consultationFee: "₹1,500",
-      email: "rahul.sharma@jurisdesk.com",
-      officeAddress: "Chamber 412, Extension Block, Delhi High Court, New Delhi",
-      profilePicture: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png",
-      governmentIdProofUrl: "#", 
-      lawcertificationUrl: "#"
-    },
-    {
-      id: 2,
-      name: "Adv. Priya Verma",
-      specialization: "Corporate Lawyer",
-      experience: "7 Years",
-      barCouncilId: "BAR/MH/2019/3145",
-      consultationFee: "₹2,500",
-      email: "priya.verma@legalcore.in",
-      officeAddress: "Suite 89, Nariman Point, Mumbai",
-      profilePicture: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png",
-      governmentIdProofUrl: "#",
-      lawcertificationUrl: "#"
-    }
-  ]);
+  const [lawyers, setLawyers] = useState([]);
+ useEffect(()=>{
+  getpendinglawyer();
+ },[])
+  const getpendinglawyer= async ()=>{
+     try{
+      const response=await axios.get("http://localhost:3000/api/admin/pending-lawyer");
+      setLawyers(response.data.lawyer);
+     }catch(error){
+      console.log(error);
 
-  const handleAudit = (id, action) => {
-    // Connect your admin API PUT route here: /api/admin/verify-lawyer/:id
-    setLawyers(lawyers.filter((lawyer) => lawyer.id !== id));
-    alert(`Lawyer profile has been successfully ${action === "approve" ? "Verified & Activated" : "Rejected"}.`);
+     }
+     
+  }
+  const handleAudit =async (id, action) => {
+   try{
+    if(action=="approve"){
+      await axios.put(`http://localhost:3000/api/admin/approve-lawyer/${id}`)
+    }
+    if(action=="reject"){
+      await axios.put(`http://localhost:3000/api/admin/reject-lawyer/${id}`)
+    }
+    alert(`The lawyer profile is succesfully ${
+      action=="approve"?"verified & activated":
+      "rejected"
+    } `)
+    getpendinglawyer();
+   }catch(error){
+    console.log(error);
+   }
   };
 
   return (
@@ -75,10 +75,10 @@ const VerifyLawyers = () => {
                 
                 {/* PRIMARY ACTIONS PANEL TRIPPERS */}
                 <div className="verify-buttons">
-                  <button className="audit-btn approve" onClick={() => handleAudit(lawyer.id, "approve")}>
+                  <button className="audit-btn approve" onClick={() => handleAudit(lawyer._id, "approve")}>
                     🛡️ Approve Practitioner
                   </button>
-                  <button className="audit-btn reject" onClick={() => handleAudit(lawyer.id, "reject")}>
+                  <button className="audit-btn reject" onClick={() => handleAudit(lawyer._id, "reject")}>
                     Reject Application
                   </button>
                 </div>

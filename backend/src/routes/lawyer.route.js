@@ -34,5 +34,9 @@ router.post(
   lawyercontroller.lawyerregister
 );
 
- router.put("/update/:id",lawyercontroller.lawyerUpdate)
+ router.put("/update/:id",lawyercontroller.lawyerUpdate);
+ 
+ router.get("/verified-lawyer",lawyercontroller.verifiedlawyers);
+ router.get("/:id",lawyercontroller.lawyerById);
+ console.log("verified lawyer route loaded");
 module.exports = router;

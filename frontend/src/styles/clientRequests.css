@@ -1,169 +1,248 @@
-/* Core Layout Container */
+/* ==========================================================================
+   1. LAYOUT CANVAS STRUCTURE
+   ========================================================================== */
 .requests-container {
-  color: #f8fafc;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 950px;
+  margin: 40px auto;
+  padding: 0 24px;
+  color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Header Section with Context Components */
 .requests-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  padding-bottom: 20px;
+  margin-bottom: 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 24px;
 }
 
 .requests-header h1 {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
+  color: #ffffff;
   letter-spacing: -0.5px;
-  margin: 0 0 6px 0;
 }
 
 .requests-header .subtitle {
-  color: #94a3b8;
+  color: #64748b;
   font-size: 14px;
-  margin: 0;
+  margin-top: 4px;
 }
 
-.requests-header .badge {
-  background: rgba(59, 130, 246, 0.1);
-  color: #60a5fa;
-  padding: 6px 12px;
-  border-radius: 99px;
+/* Pulsing Inbound Counter Badge */
+.badge-pulse-counter {
+  background: rgba(0, 217, 255, 0.08);
+  color: #00d9ff;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  padding: 6px 16px;
+  border-radius: 20px;
   font-size: 13px;
-  font-weight: 600;
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  font-weight: 700;
+  letter-spacing: 0.3px;
 }
 
-/* Responsive Grid Adjustments */
+/* Back to Control Center Link Styling */
+.back-dashboard-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.back-dashboard-btn:hover {
+  color: #00d9ff;
+  transform: translateX(-4px);
+}
+
+/* ==========================================================================
+   2. ASYMMETRIC INTAKE CARDS
+   ========================================================================== */
 .requests-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 24px;
-}
-
-/* Human UI Oriented Card Architecture */
-.request-card {
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  gap: 20px;
+}
+
+.request-card-premium {
+  background: #111625; /* Elevated tier background panel */
+  border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: 16px;
-  background: rgba(30, 41, 59, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color 0.2s ease, 
-              box-shadow 0.2s ease;
-}
-
-.request-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.4);
-}
-
-/* Internal Card Structuring */
-.card-header {
+  padding: 28px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 16px;
+  gap: 40px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.request-card h2 {
-  font-size: 18px;
+.request-card-premium:hover {
+  border-color: rgba(0, 217, 255, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Left Content Stack */
+.card-profile-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.client-meta-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.client-meta-header h2 {
+  font-size: 20px;
   font-weight: 600;
   color: #ffffff;
-  margin: 0;
 }
 
-.timestamp {
+.timestamp-badge {
   font-size: 12px;
-  color: #64748b;
+  color: #475569;
 }
 
-.card-body {
-  margin-bottom: 24px;
-  flex-grow: 1;
-}
-
-.tag {
-  display: inline-block;
-  font-size: 11px;
+/* Bold Specialized Category Text */
+.issue-type-highlight {
+  font-size: 14px;
+  font-weight: 700; /* Bold emphasis requested */
+  color: #00d9ff;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+/* Small Font Case Description block */
+.case-description-text {
+  font-size: 13.5px; /* Clean structured small font text */
+  line-height: 1.6;
   color: #94a3b8;
-  margin-bottom: 4px;
-  font-weight: 500;
+  background: #161c2e; /* Inset layer */
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.01);
 }
 
-.issue-text {
-  color: #cbd5e1;
-  font-size: 15px;
-  margin: 0;
-  line-height: 1.5;
-}
-
-/* Action Center Controls */
-.request-buttons {
+/* ==========================================================================
+   3. RIGHT SIDE CONTROLS & STATUS
+   ========================================================================== */
+.card-control-panel {
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+  min-width: 220px;
 }
 
-.btn-accept,
-.btn-reject {
+.status-pill {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+}
+
+.status-pill.pending {
+  background: rgba(241, 196, 15, 0.06);
+  color: #f1c40f;
+  border: 1px solid rgba(241, 196, 15, 0.15);
+}
+
+.request-action-buttons {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Control Actions Action Triggers */
+.btn-accept, .btn-reject {
   flex: 1;
   padding: 11px 16px;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s ease;
-  text-align: center;
+  outline: none;
+  border: none;
+  transition: all 0.2s ease;
 }
 
-/* Micro-interactions for Decline Trigger */
-.btn-reject {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #e2e8f0;
-}
-
-.btn-reject:hover {
-  background: rgba(239, 68, 68, 0.1);
-  border-color: rgba(239, 68, 68, 0.2);
-  color: #f87171;
-}
-
-/* Micro-interactions for Accept Trigger */
 .btn-accept {
-  background: #2563eb;
-  border: 1px solid transparent;
-  color: #ffffff;
-  box-shadow: 0 2px 4px rgba(37, 99, 211, 0.2);
+  background: linear-gradient(135deg, #00ff88, #00b359);
+  color: #030312;
+  box-shadow: 0 4px 12px rgba(0, 255, 136, 0.15);
 }
 
 .btn-accept:hover {
-  background: #1d4ed8;
-  box-shadow: 0 4px 12px rgba(37, 99, 211, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 255, 136, 0.3);
 }
 
-.btn-accept:active,
-.btn-reject:active {
-  transform: scale(0.98);
+.btn-reject {
+  background: rgba(244, 63, 94, 0.05);
+  border: 1px solid rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
 }
 
-/* Handled Fallback Layout */
-.empty-state {
+.btn-reject:hover {
+  background: rgba(244, 63, 94, 0.1);
+  color: #ff4d6d;
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+.btn-accept:active, .btn-reject:active {
+  transform: translateY(1px);
+}
+
+/* ==========================================================================
+   4. EMPTY BOUNDARY PANELS
+   ========================================================================== */
+.empty-state-card {
   text-align: center;
-  padding: 60px 20px;
-  background: rgba(30, 41, 59, 0.2);
+  background: #111625;
+  border: 1px solid rgba(255, 255, 255, 0.03);
   border-radius: 16px;
-  border: 1px dashed rgba(255, 255, 255, 0.08);
+  padding: 60px 40px;
+}
+
+.empty-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.empty-state-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.empty-state-card p {
+  font-size: 14px;
   color: #64748b;
+}
+
+/* Handle mobile layout collapsing gracefully */
+@media (max-width: 768px) {
+  .request-card-premium {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+  .card-control-panel {
+    align-items: flex-start;
+    min-width: 100%;
+  }
 }

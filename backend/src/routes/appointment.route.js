@@ -1,0 +1,10 @@
+const express=require('express');
+const router=express.Router();
+const appointmentController=require("../controllers/appoinment.controller");
+router.post("/request",appointmentController.createAppoinment);
+router.get("/pending/:lawyerId",appointmentController.getPendingRequest);
+router.put("/approve/:id",appointmentController.approverequest);
+router.put("/reject/:id",appointmentController.rejectrequest);
+router.get("/approved/:lawyerId",appointmentController.approvedappointment);
+router.get("/client/:clientId",appointmentController.getClientAppointment);
+module.exports=router;
