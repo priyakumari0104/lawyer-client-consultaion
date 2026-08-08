@@ -50,7 +50,7 @@ const navigate = useNavigate();
       if (!lawyer?._id) return;
 
       const response = await axios.get(
-        `http://localhost:3000/api/appointment/approved/${lawyer._id}`,
+        `${import.meta.env.VITE_BASE_URL}/api/appointment/approved/${lawyer._id}`,
       );
       setAppointments(response.data.requests || []);
     } catch (error) {

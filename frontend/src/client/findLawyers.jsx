@@ -7,7 +7,7 @@ const FindLawyers = () => {
   const[lawyers,setLawyers]=useState([]);
    const verifiedlawyers= async()=>{
     try{
-      const response= await axios.get("http://localhost:3000/api/lawyer/verified-lawyer");
+      const response= await axios.get(`${import.meta.env.VITE_BASE_URL}/api/lawyer/verified-lawyer`);
         setLawyers(response.data.lawyer);
         console.log(response.data);
     }catch(error){
@@ -51,7 +51,7 @@ console.log(error);
                 src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png"
                 alt={lawyer.name}
               />
-              <h2>{lawyer.name}</h2>
+              <h2>{lawyer.fullName}</h2>
               {/* Specialized Tagging Badge System */}
               <span className={`specialization-tag ${lawyer.specialization.toLowerCase().replace(" ", "-")}`}>
                 {lawyer.specialization}
@@ -62,11 +62,11 @@ console.log(error);
             <div className="metadata-row">
               <div className="meta-block">
                 <span className="meta-label">Experience</span>
-                <span className="meta-value">{lawyer.experience}</span>
+                <span className="meta-value">{lawyer.experience} years </span>
               </div>
               <div className="meta-block">
                 <span className="meta-label">Consultation Fee</span>
-                <span className="meta-value fee-highlight">{lawyer.fee}</span>
+                <span className="meta-value fee-highlight">Rs {lawyer.consultationFee} </span>
               </div>
             </div>
 

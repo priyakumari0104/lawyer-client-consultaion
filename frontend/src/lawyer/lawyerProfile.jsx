@@ -19,7 +19,7 @@ const LawyerProfile = () => {
   const handleFormSubmit = async(e) => {
     e.preventDefault();
     try{
-      const res= await axios.put(`http://localhost:3000/api/lawyer/update/${formData._id}`,formData);
+      const res= await axios.put(`${import.meta.env.VITE_BASE_URL}/api/lawyer/update/${formData._id}`,formData);
       //update localStorage
       localStorage.setItem("user",JSON.stringify(res.data.lawyer));
       //update state
@@ -79,17 +79,7 @@ alert("Updatation Failed");
           <div className="form-section">
             <h3>Account & Bar Credentials</h3>
             <div className="input-fields-grid">
-              <div className="form-group">
-                <label>Username</label>
-                <input
-                  type="text"
-                  name="userName"
-                  value={formData.userName}
-                  onChange={handleInputChange}
-                  disabled={!isEditing}
-                  required
-                />
-              </div>
+              
               <div className="form-group">
                 <label>Bar Council ID</label>
                 <input

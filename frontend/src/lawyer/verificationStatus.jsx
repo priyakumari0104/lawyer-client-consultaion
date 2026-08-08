@@ -1,16 +1,38 @@
-import React from "react";
+import React,{useState,useEffect}from "react";
 import { Link } from "react-router-dom";
 import "../styles/verificationStatus.css";
+import axios from "axios";
+
 
 const VerificationStatus = () => {
   // Real apps map out structural verification checklist items
+  const [status,setStatus]=useState("pending");
   const verificationSteps = [
     { id: 1, title: "Account Registration", desc: "Basic practitioner account configured", status: "completed" },
     { id: 2, title: "Legal Documentation Upload", desc: "BAR license files and identity proofs received", status: "completed" },
-    { id: 3, title: "Administrative Review", desc: "Our compliance team is cross-checking records with the Bar Council", status: "current" },
-    { id: 4, title: "Portal Activation", desc: "Unlock verified lawyer badge and customer matching engine", status: "upcoming" }
+    { id: 3, title: "Administrative Review", desc: "Our compliance team is cross-checking records with the Bar Council", status:
+      status==="pending"?"current":status==="verified"?"completed":"completed",
+     },
+    { id: 4, title: "Portal Activation", desc: "Unlock verified lawyer badge and Start accepting client appointments", status: 
+      status==="verified"?
+      "completed"
+      :status==="pending"
+      ?"upcoming"
+      :"upcoming",
+     },
   ];
-
+useEffect(()=>{
+  const fetchStatus=async()=>{
+    try{
+const user=JSON.parse(localStorage.getItem("user"));
+const response =await axios.get(`${import.meta.env.VITE_BASE_URL}/api/lawyer/${user._id}`);
+setStatus(response.data.lawyer.verificationStatus);
+    }catch(error){
+console.log(error)
+    }
+  }
+  fetchStatus();
+},[]);
   return (
     <div className="verification-container">
       {/* Back Navigation Link */}
@@ -28,20 +50,31 @@ const VerificationStatus = () => {
         
         {/* LEFT CARD: Current Status Banner */}
         <div className="status-overview-card">
-          <div className="status-icon-glow delay-pulse">⏳</div>
+          <div className="status-icon-glow delay-pulse">{status=="pending"&&"⏳"}
+            {status=="verified"&&"✅"}
+            {status=="rejected"&&"❌"}
+
+          </div>
           <div className="status-title-group">
             <span className="badge-alert-text">CURRENT STATUS</span>
-            <h2>Under Review</h2>
+            <h2>{status==="pending"&&"Under Review"}
+                {status==="verified"&&"Verified"}
+                {status==="rejected"&&"Rejected"}
+            </h2>
           </div>
           <p className="status-description">
-            Your legal documents are undergoing manual background compliance validation.
+           {status=="pending"&&"Your document are currently under review by the admin"}
+           {status=="verified"&&"Congratulations! Your profile has been verified. You can now receive consultaion requests "}
+           {status=="rejected"&&"Your verification request was rejected.Please contact the administrator or upload valid documents"}
           </p>
           
           <div className="time-estimate-box">
             <span className="clock-icon">🕒</span>
             <div>
               <h4>Estimated Completion</h4>
-              <p>Within 24 to 48 business hours</p>
+              <p>{status==="pending"&&"Within 24 to 48 bussiness hours"}
+                {status==="verified"&&"Verification completed successfully"}
+                {status==="rejected"&&"Please contact admin for further assistance"}</p>
             </div>
           </div>
 

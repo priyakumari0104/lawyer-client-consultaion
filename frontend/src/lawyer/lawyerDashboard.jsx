@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { Link ,useNavigate} from "react-router-dom";
 import "../styles/lawyerDashboard.css";
-
+import axios from "axios";
 const LawyerDashboard = () => {
   const navigate=useNavigate();
   // Real apps feature secondary actionable modules on the main workspace
-  const recentActivity = [
-    { id: 1, client: "Nitya Sharma", type: "Property Dispute", time: "Today, 5:00 PM", status: "Upcoming" },
-    { id: 2, client: "Aman Gupta", type: "Corporate Review", time: "28 May, 7:00 PM", status: "Pending Approval" }
-  ];
+  
+  const [stats,setStats]=useState({
+    totalclients:0,
+    pendingRequests:0,
+    approvedRequests:0,
+    totalAppointments:0,
+  });
+  const [recentActivity,setRecentActivity]=useState([]);
    const lawyerData= localStorage.getItem("user");
     const data=JSON.parse(lawyerData);
  const logout=async (e)=>{
@@ -16,6 +20,18 @@ const LawyerDashboard = () => {
   localStorage.removeItem("token");
 navigate("/login");
  }
+  useEffect(()=>{
+    const fetchdashdata= async (req,res)=>{
+      try{
+const response= await axios.get(`${import.meta.env.VITE_BASE_URL}/api/lawyer/dashboard/${data._id}`);
+setStats(response.data.stats);
+setRecentActivity(response.data.upcoomingAppointments)
+      }catch(error){
+console.log(error);
+      }
+    }
+    fetchdashdata();
+},[])
   return (
     <div className="dashboard-container">
       
@@ -48,7 +64,7 @@ navigate("/login");
       <main className="dashboard-main">
         <header className="dashboard-header">
           <div>
-            <h1>Welcome back, {data.userName} 👋</h1>
+            <h1>Welcome back, {data.fullName} 👋</h1>
             <p className="subtitle">Here is a real-time summary of your legal practice diagnostics</p>
           </div>
           <div className="header-badge">Practitioner Portal</div>
@@ -57,15 +73,15 @@ navigate("/login");
         {/* METRICS ROW */}
         <section className="stats-container">
           <div className="stats-card">
-            <h2>18</h2>
+            <h2>{stats.totalclients}</h2>
             <p>Total Clients</p>
           </div>
           <div className="stats-card">
-            <h2>5</h2>
+            <h2>{stats.pendingAppointments}</h2>
             <p>Pending Requests</p>
           </div>
           <div className="stats-card">
-            <h2>10</h2>
+            <h2>{stats.approvedAppointments}</h2>
             <p>Appointments</p>
           </div>
           <div className="stats-card">
@@ -85,11 +101,11 @@ navigate("/login");
               {recentActivity.map((activity) => (
                 <div className="agenda-row-item" key={activity.id}>
                   <div className="client-info">
-                    <h4>{activity.client}</h4>
-                    <span>{activity.type}</span>
+                    <h4>{activity.clientId?.fullName}</h4>
+                    <span>{activity.issueType}</span>
                   </div>
                   <div className="schedule-info">
-                    <span className="timestamp">{activity.time}</span>
+                    <span className="timestamp">{new Date(activity.createdAt).toLocaleDateString()}</span>
                     <span className={`mini-badge ${activity.status.toLowerCase().replace(" ", "-")}`}>
                       {activity.status}
                     </span>

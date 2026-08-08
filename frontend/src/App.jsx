@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import LandingPage from "./pages/LandingPage";
@@ -20,6 +21,7 @@ import Reports from "./admin/reports";
 import BookAppointment from "./client/BookAppoinments";
 import Myappointments from "./client/myAppointments";
 import Chat from "./pages/Chatbox";
+
 import { useEffect } from "react";
 function App() {
   return (
@@ -57,7 +59,11 @@ function App() {
 
     <Route
       path="/client/dashboard"
-      element={<Clientdashboard />}
+      element={
+        <ProtectedRoute>
+          <Clientdashboard/>
+        </ProtectedRoute>
+      }
     />
 
     <Route
@@ -92,7 +98,11 @@ function App() {
 
 <Route
       path="/lawyer/dashboard"
-      element={<LawyerDashboard />}
+      element={
+        <ProtectedRoute role="lawyer">
+          <LawyerDashboard/>
+        </ProtectedRoute>
+      }
     />
 
   <Route
@@ -112,10 +122,13 @@ function App() {
       element={<VerificationStatus />}
     />
   // admin
-<Route
-      path="/admin/dashboard"
-      element={<AdminDashboard />}
-    />
+<Route path="/admin/dashboard"
+element={
+  <ProtectedRoute role="admin">
+    <AdminDashboard/>
+  </ProtectedRoute>
+}
+/>
 <Route
       path="/admin/reports"
       element={<Reports />}

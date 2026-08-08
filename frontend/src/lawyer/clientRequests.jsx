@@ -12,7 +12,7 @@ const ClientRequests = () => {
       const lawyer = JSON.parse(localStorage.getItem("user"));
       if (!lawyer?._id) return;
       
-      const response = await axios.get(`http://localhost:3000/api/appointment/pending/${lawyer._id}`);
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/appointment/pending/${lawyer._id}`);
       console.log(response.data.requests);
       setRequests(response.data.requests || []);
     } catch (error) {
@@ -30,7 +30,7 @@ const ClientRequests = () => {
     setIsProcessing(id);
 
     const response = await axios.put(
-      `http://localhost:3000/api/appointment/approve/${id}`
+      `${import.meta.env.VITE_BASE_URL}/api/appointment/approve/${id}`
     );
 
     alert(response.data.message);
@@ -48,7 +48,7 @@ const rejectRequest = async (id) => {
     setIsProcessing(id);
 
     const response = await axios.put(
-      `http://localhost:3000/api/appointment/reject/${id}`
+      `${import.meta.env.VITE_BASE_URL}/api/appointment/reject/${id}`
     );
 
     alert(response.data.message);

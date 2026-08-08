@@ -17,7 +17,7 @@ const Profile = () => {
   const handleFormSubmit =  async(e) => {
     e.preventDefault();
     try{
-      const res= await  axios.put(`http://localhost:3000/api/client/update/${formData._id}`,formData);
+      const res= await  axios.put(`${import.meta.env.VITE_BASE_URL}/api/client/update/${formData._id}`,formData);
       localStorage.setItem("user",JSON.stringify(res.data.client));
       setFormData(res.data.client);
       alert(res.data.message);

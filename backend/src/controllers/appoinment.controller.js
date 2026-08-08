@@ -1,5 +1,5 @@
 const appoinmentModel = require("../models/appoinment.model");
-
+const Notification=require("../models/notification.model")
 const createAppoinment= async (req,res)=>{
     try{
         const {clientId,lawyerId,issueType,description}=req.body;
@@ -10,6 +10,14 @@ const createAppoinment= async (req,res)=>{
             issueType:issueType,
             description:description
         });
+        console.log("before ntification");
+        await Notification.create({
+            userId:lawyerId,
+            tittle:"New Consultation request",
+            message:"A client has requested a consultation with you.",
+            type:"info"
+        })
+        console.log("notification created");
         res.status(200).json({
             message:"appointment created successfully",
             success:true,
@@ -50,6 +58,18 @@ const approverequest= async (req,res)=>{
             {status:"approved"},
             {new:true}
         )
+        if(!requests){
+            return res.status(404).json({
+                message:"Appintments not found",
+                success:false
+            })
+        }
+        await Notification.create({
+            userId:requests.clientId,
+            tittle:"Appoinment Approved",
+            message:"Your consultation request has been approved. You can now proceed with the appointment.",
+            type:"success"
+        })
         res.status(200).json({
             message:"appoinment approved successfully",
             success:true,
@@ -69,6 +89,18 @@ const rejectrequest= async (req,res)=>{
             {status:"rejected"},
             {new:true}
         )
+        if(!requests){
+            return res.status(404).json({
+                message:"Appounments not found",
+                success:false
+            })
+        }
+        await Notification.create({
+            userId:requests.clientId,
+            tittle:"Appointment rejected",
+            message:"Your consultation request has been rejected by the lawyer.",
+            type:"error"
+        })
         res.status(200).json({
             message:"request rejectd successfully",
             success:true

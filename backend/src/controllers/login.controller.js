@@ -1,4 +1,5 @@
-  const clientModel=require("../models/client.model");
+  const adminModel = require("../models/admin.model");
+const clientModel=require("../models/client.model");
    const lawyerModel=require("../models/lawyer.model");
    const bcrypt=require("bcrypt");
    const jwt=require("jsonwebtoken");
@@ -10,6 +11,9 @@
             if(!user){
                  user= await  lawyerModel.findOne({email:email});
                   role="lawyer";
+            }if(!user){
+                user=await adminModel.findOne({email:email});
+                role="admin";
             }
          if(!user){
             return res.status(401).json({

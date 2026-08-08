@@ -41,7 +41,7 @@ const Chat = () => {
   // 3. FIXED: Fetch older history and ensure it maps safely
  const fetchMessages = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/chat/${appointmentId}`);
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/chat/${appointmentId}`);
       
       console.log("=== CHAT DEBUG LOG ===");
       console.log("Data Type:", typeof response.data);

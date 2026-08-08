@@ -2,32 +2,34 @@
   const jwt=require('jsonwebtoken');
   const bcrypt=require('bcrypt');
  async function register(req,res){
-    const {userName,email,password,role,fullName,phoneNumber,
+     console.log("✅ Client Register API Hit");
+    const {email,password,role,fullName,phoneNumber,
       dob,governmentIdType,governmentIdNumber,
       emergencyContactNumber,address}= req.body || {};
-         
+         console.log(email);
+         console.log(password);
      try{
-         if (!userName || !email || !password) {
+         if (!email || !password) {
             return res.status(400).json({
                success:false,
-               message:"username, email and password are required"
+               message:" email and password are required"
             });
          }
  const isuseralreadyexist= await clientmodel.findOne({
          $or:[
-            {userName:userName},
+            
             {email:email}
          ]
       });
                if(isuseralreadyexist){
          return res.status(400).json({
             success:false,
-            message:"User with the same username or email already exists"
+            message:"User with the same  email already exists"
          })
       }
       const hash= await  bcrypt.hash(password,10);
          const user= await clientmodel.create({
-             userName:userName,
+             
              email:email,
              password:hash,
              role:role,

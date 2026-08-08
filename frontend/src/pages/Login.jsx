@@ -3,6 +3,7 @@ import "../styles/register.css";
 import {Link,useNavigate} from "react-router-dom";
 import axios from "axios";
 const Login = () => {
+  const[loading,setLoading]=useState(false);
  const navigate=useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -19,7 +20,8 @@ const Login = () => {
   const   handleSubmit =  async (e) => {
     e.preventDefault();
      try{
-       const res=  await axios.post("http://localhost:3000/api/auth/login",formData);
+      setLoading(true);
+       const res=  await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`,formData);
        localStorage.setItem("token",res.data.token);
        localStorage.setItem("user",JSON.stringify(res.data.user));
        alert(res.data.message);
@@ -27,11 +29,15 @@ const Login = () => {
          navigate("/client/dashboard");
        }else if(res.data.role==="lawyer"){
         navigate("/lawyer/dashboard");
+       }else if(res.data.role==="admin"){
+        navigate("/admin/dashboard");
        }
-     }
+      }
 catch(err){
   console.log(err);
   alert(err.response?.data?.message);
+}finally{
+  setLoading(false);
 }
   }
    
@@ -45,20 +51,21 @@ catch(err){
       <div className="register-card">
 <h1>JurisDesk</h1>
         <h1>Login</h1>
-        <p>Welcome back 🎵</p>
+        <p>Welcome back </p>
 
         <form onSubmit={handleSubmit}>
 
           <input
+            className="full-width"
             type="email"
             name="email"
             placeholder="Enter Email "
             value={formData.email}
-            
             onChange={handleChange}
           />
 
           <input
+            className="full-width"
             type="password"
             name="password"
             placeholder="Enter Password"
@@ -66,9 +73,13 @@ catch(err){
             onChange={handleChange}
           />
 
-          <button type="submit">
-            Login
-          </button>
+         <button
+  type="submit"
+  disabled={loading}
+  className={loading ? "btn-disabled" : "btn-primary"}
+>
+  {loading ? "Submitting..." : "Submit Request"}
+</button>
 
 <Link
     className="login-text"

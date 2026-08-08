@@ -19,7 +19,7 @@ const Register = () => {
 
     // common
     fullName: "",
-    userName: "",
+    
     email: "",
     password: "",
     phoneNumber: "",
@@ -86,7 +86,8 @@ const handleSubmit = async (e) => {
 
       res = await axios.post(
 
-        "http://localhost:3000/api/lawyer/lawyerregister",
+        
+        `${import.meta.env.VITE_BASE_URL}/api/lawyerregister`,
 
         data,
 
@@ -109,7 +110,8 @@ const handleSubmit = async (e) => {
 
       res = await axios.post(
 
-        "http://localhost:3000/api/client/register",
+        
+        `${import.meta.env.VITE_BASE_URL}/api/client/register`,
 
         formData
 
@@ -169,13 +171,7 @@ const handleSubmit = async (e) => {
             onChange={handleChange}
           />
 
-          <input
-            type="text"
-            name="userName"
-            placeholder="Username"
-            value={formData.userName}
-            onChange={handleChange}
-          />
+          
 
           <input
             type="email"

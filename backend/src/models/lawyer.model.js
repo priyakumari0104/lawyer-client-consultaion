@@ -1,10 +1,6 @@
  const mongoose=require('mongoose');
   const lawyerSchema= new mongoose.Schema({
-    userName:{
-        type:String,
-        required:true,
-        unique:true 
-    },
+
     fullName:{
         type:String,
         required:true

@@ -38,5 +38,5 @@ router.post(
  
  router.get("/verified-lawyer",lawyercontroller.verifiedlawyers);
  router.get("/:id",lawyercontroller.lawyerById);
- console.log("verified lawyer route loaded");
+ router.get("/dashboard/:lawyerId",lawyercontroller.lawyerdashboard);
 module.exports = router;

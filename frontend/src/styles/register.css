@@ -1,3 +1,18 @@
+:root{
+  --accent-pink:#ff00c8;
+  --accent-cyan:#00d9ff;
+  --bg-deep:#050816;
+  --surface:rgba(255,255,255,0.06);
+  --surface-hover:rgba(255,255,255,0.09);
+  --border:rgba(255,255,255,0.14);
+  --border-hover:rgba(255,255,255,0.24);
+  --text-main:#f5f6fa;
+  --text-muted:#a8adba;
+  --radius-lg:20px;
+  --radius-md:14px;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+
 *{
   margin:0;
   padding:0;
@@ -9,134 +24,148 @@ body,
 #root{
   width:100%;
   min-height:100%;
-  /* overflow-x:hidden;
-  overflow-y:auto; */
   scroll-behavior:smooth;
-  background:#050816;
-  font-family:Arial, Helvetica, sans-serif;
+  background:var(--bg-deep);
+  font-family:'Inter', Arial, Helvetica, sans-serif;
+  color:var(--text-main);
 }
 
 /* MAIN CONTAINER */
 
 .register-container{
-
   width:100%;
   min-height:100vh;
 
   display:flex;
   justify-content:center;
-  align-items:flex-start;
+  align-items:center;
 
-  padding-top:120px;
-  padding-bottom:80px;
-  padding-left:20px;
-  padding-right:20px;
+  padding:clamp(24px, 6vw, 100px) 20px;
 
   position:relative;
-
-  
+  overflow:hidden;
 }
 
 /* GLOW EFFECTS */
 
 .glow{
   position:absolute;
-  width:350px;
-  height:350px;
+  width:min(420px, 45vw);
+  height:min(420px, 45vw);
   border-radius:50%;
-  filter:blur(120px);
-  opacity:0.4;
+  filter:blur(130px);
+  opacity:0.35;
+  pointer-events:none;
+  animation:drift 12s ease-in-out infinite alternate;
 }
 
 .glow1{
-  background:#ff00c8;
-  top:-100px;
-  left:-100px;
+  background:var(--accent-pink);
+  top:-120px;
+  left:-120px;
 }
 
 .glow2{
-  background:#00d9ff;
-  bottom:-100px;
-  right:-100px;
+  background:var(--accent-cyan);
+  bottom:-120px;
+  right:-120px;
+  animation-delay:-6s;
+}
+
+@keyframes drift{
+  from{ transform:translate(0,0) scale(1); }
+  to{ transform:translate(30px,-20px) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .glow{ animation:none; }
 }
 
 /* CARD */
 
 .register-card{
+  width:100%;
+  max-width:880px;
 
-  width:95%;
-  max-width:1200px;
+  padding:clamp(28px, 4vw, 52px);
 
-  padding:55px;
+  border-radius:var(--radius-lg);
 
-  border-radius:30px;
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
 
-  backdrop-filter:blur(18px);
+  background:var(--surface);
+  border:1px solid var(--border);
 
-  background:rgba(255,255,255,0.08);
-
-  border:1px solid rgba(255,255,255,0.15);
-
-  box-shadow:0 0 40px rgba(0,0,0,0.4);
-
-  color:white;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,255,255,0.02) inset;
 
   z-index:10;
-
   position:relative;
 
-  overflow:visible;
+  animation:card-in 0.6s var(--ease) both;
+}
 
-  margin-bottom:40px;
+@keyframes card-in{
+  from{
+    opacity:0;
+    transform:translateY(16px) scale(0.98);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
 }
 
 /* HEADINGS */
 
 .register-card h1{
-
   text-align:center;
 
-  font-size:55px;
+  font-size:clamp(30px, 4vw, 44px);
+  font-weight:800;
+  letter-spacing:-0.02em;
 
-  margin-bottom:15px;
+  margin-bottom:10px;
+  line-height:1.2;
 
-  line-height:1.3;
-
-  /* overflow:visible; */
-
-  background:linear-gradient(
-    to right,
-    #ff00c8,
-    #00d9ff
-  );
-
+  background:linear-gradient(100deg, var(--accent-pink), var(--accent-cyan));
   -webkit-background-clip:text;
-
+  background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-.register-card p{
-
+.register-card > p{
   text-align:center;
-
-  color:#d8d8d8;
-
-  margin-bottom:45px;
-
-  font-size:18px;
+  color:var(--text-muted);
+  margin-bottom:36px;
+  font-size:15px;
+  line-height:1.5;
 }
 
 /* FORM LAYOUT */
 
 .register-card form{
-
   width:100%;
-
   display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:18px 20px;
+}
 
-  grid-template-columns:1fr 1fr;
+/* FIELD GROUP (optional wrapper: <div class="field"><label/><input/></div>) */
 
-  gap:24px;
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.field label{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text-muted);
+  letter-spacing:0.01em;
 }
 
 /* INPUTS */
@@ -144,38 +173,69 @@ body,
 .register-card input,
 .register-card select,
 .register-card textarea{
-
   width:100%;
+  height:52px;
+  padding:0 16px;
 
-  padding:18px;
-
-  border-radius:16px;
-
-  border:1px solid rgba(255,255,255,0.15);
+  border-radius:var(--radius-md);
+  border:1px solid var(--border);
 
   outline:none;
+  background:var(--surface);
+  color:var(--text-main);
 
-  background:rgba(255,255,255,0.06);
+  font-size:15px;
+  font-family:inherit;
 
-  color:white;
+  transition:border-color 0.25s var(--ease),
+             box-shadow 0.25s var(--ease),
+             background 0.25s var(--ease);
+}
 
-  font-size:16px;
+.register-card textarea{
+  height:auto;
+  min-height:130px;
+  padding:14px 16px;
+  resize:vertical;
+  grid-column:1 / -1;
+  line-height:1.5;
+}
 
-  transition:0.3s;
+/* HOVER */
+
+.register-card input:hover,
+.register-card select:hover,
+.register-card textarea:hover{
+  background:var(--surface-hover);
+  border-color:var(--border-hover);
 }
 
 /* PLACEHOLDER */
 
 .register-card input::placeholder,
 .register-card textarea::placeholder{
-
-  color:#d8d8d8;
+  color:#8a8f9e;
 }
 
 /* SELECT OPTION */
 
+.register-card select{
+  appearance:none;
+  -webkit-appearance:none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--accent-cyan) 50%),
+    linear-gradient(135deg, var(--accent-cyan) 50%, transparent 50%);
+  background-position:
+    calc(100% - 22px) center,
+    calc(100% - 17px) center;
+  background-size:5px 5px, 5px 5px;
+  background-repeat:no-repeat;
+  padding-right:40px;
+}
+
 .register-card select option{
-  color:black;
+  color:#111;
+  background:#fff;
 }
 
 /* FOCUS EFFECT */
@@ -183,108 +243,145 @@ body,
 .register-card input:focus,
 .register-card select:focus,
 .register-card textarea:focus{
-
-  border-color:#00d9ff;
-
-  box-shadow:0 0 18px rgba(0,217,255,0.4);
+  border-color:var(--accent-cyan);
+  background:rgba(0,217,255,0.06);
+  box-shadow:0 0 0 4px rgba(0,217,255,0.15);
 }
 
-/* TEXTAREA */
+/* INVALID STATE (native validation) */
 
-.register-card textarea{
-
-  min-height:140px;
-
-  resize:none;
-
-  grid-column:span 2;
+.register-card input:invalid:not(:placeholder-shown){
+  border-color:#ff4d6d;
 }
 
 /* FILE INPUT */
 
-input[type="file"]{
-
-  grid-column:span 2;
-
-  padding:12px;
-
+.register-card input[type="file"]{
+  grid-column:1 / -1;
+  height:auto;
+  padding:14px 16px;
   background:rgba(255,255,255,0.03);
-
-  border-radius:14px;
-
-  color:white;
+  border-style:dashed;
+  cursor:pointer;
 }
 
-/* LABEL */
+.register-card input[type="file"]::file-selector-button{
+  padding:8px 16px;
+  margin-right:14px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(to right, var(--accent-pink), var(--accent-cyan));
+  color:#fff;
+  font-weight:600;
+  font-size:13px;
+  cursor:pointer;
+  transition:opacity 0.25s var(--ease);
+}
+
+.register-card input[type="file"]::file-selector-button:hover{
+  opacity:0.85;
+}
+
+/* LABEL ABOVE UPLOAD */
 
 .upload-label{
-
-  grid-column:span 2;
-
-  margin-bottom:-12px;
-
-  color:#d8d8d8;
-
-  font-size:15px;
+  grid-column:1 / -1;
+  margin-bottom:-6px;
+  color:var(--text-muted);
+  font-size:13px;
+  font-weight:600;
 }
 
 /* BUTTON */
 
 .register-card button{
+  grid-column:1 / -1;
 
-  grid-column:span 2;
-
-  padding:18px;
+  height:54px;
+  margin-top:8px;
 
   border:none;
+  border-radius:var(--radius-md);
 
-  border-radius:16px;
+  background:linear-gradient(100deg, var(--accent-pink), var(--accent-cyan));
+  background-size:160% 100%;
+  background-position:0% 0%;
 
-  background:linear-gradient(
-    to right,
-    #ff00c8,
-    #00d9ff
-  );
-
-  color:white;
-
-  font-size:18px;
+  color:#fff;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:0.01em;
 
   cursor:pointer;
+  position:relative;
+  overflow:hidden;
 
-  transition:0.3s;
-
-  font-weight:bold;
+  transition:transform 0.25s var(--ease),
+             box-shadow 0.25s var(--ease),
+             background-position 0.4s var(--ease);
 }
 
 .register-card button:hover{
+  transform:translateY(-2px);
+  background-position:100% 0%;
+  box-shadow:0 12px 30px rgba(0,217,255,0.35);
+}
 
-  transform:translateY(-3px);
+.register-card button:active{
+  transform:translateY(0);
+  box-shadow:0 4px 14px rgba(0,217,255,0.3);
+}
 
-  box-shadow:0 0 25px rgba(0,217,255,0.6);
+.register-card button:focus-visible,
+.register-card input:focus-visible,
+.register-card select:focus-visible,
+.register-card textarea:focus-visible{
+  outline:2px solid var(--accent-cyan);
+  outline-offset:2px;
+}
+
+.register-card button:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none;
+  box-shadow:none;
 }
 
 /* LOGIN LINK */
 
+.login-link-wrapper{
+  grid-column:1 / -1;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  margin-top:6px;
+}
+
 .login-text{
-
-  grid-column:span 2;
-
-  display:block;
-
-  text-align:center;
-
-  margin-top:5px;
-
-  color:#ccc;
-
+  color:var(--text-muted);
   text-decoration:none;
+  font-size:14px;
+  position:relative;
+  transition:color 0.25s var(--ease);
+}
 
-  transition:0.3s;
+.login-text::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:-2px;
+  width:0%;
+  height:1px;
+  background:var(--accent-cyan);
+  transition:width 0.25s var(--ease);
 }
 
 .login-text:hover{
-  color:#00d9ff;
+  color:var(--accent-cyan);
+}
+
+.login-text:hover::after{
+  width:100%;
 }
 
 /* SCROLLBAR */
@@ -294,7 +391,7 @@ input[type="file"]{
 }
 
 ::-webkit-scrollbar-thumb{
-  background:#00d9ff;
+  background:var(--accent-cyan);
   border-radius:10px;
 }
 
@@ -304,55 +401,43 @@ input[type="file"]{
 
 /* RESPONSIVE */
 
-@media(max-width:900px){
-
+@media (max-width:820px){
   .register-card{
-
-    padding:35px;
+    border-radius:16px;
   }
 
   .register-card form{
-
     grid-template-columns:1fr;
+  }
+}
+
+@media (max-width:480px){
+  .register-container{
+    padding:16px;
+  }
+
+  .register-card{
+    padding:24px 20px;
   }
 
   .register-card h1{
-
-    font-size:42px;
+    font-size:28px;
   }
 
-  .register-card textarea,
-  .register-card button,
-  .login-text,
-  input[type="file"],
-  .upload-label{
-
-    grid-column:span 1;
+  .register-card input,
+  .register-card select{
+    height:48px;
   }
 }
-.login-link-wrapper{
 
-  grid-column:span 2;
 
-  width:100%;
-
-  display:flex;
-
-  justify-content:center;
-
-  margin-top:10px;
+.btn-disabled {
+  background: gray;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
-.login-text{
-
-  color:#ccc;
-
-  text-decoration:none;
-
-  transition:0.3s;
-}
-
-.login-text:hover{
-
-  color:#00d9ff;
+.btn-primary {
+  background: #0ea5e9;
+  cursor: pointer;
 }

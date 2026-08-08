@@ -13,7 +13,7 @@ const VerifyLawyers = () => {
  },[])
   const getpendinglawyer= async ()=>{
      try{
-      const response=await axios.get("http://localhost:3000/api/admin/pending-lawyer");
+      const response=await axios.get`${import.meta.env.VITE_BASE_URL}/api/admin/pending-lawyer`;
       setLawyers(response.data.lawyer);
      }catch(error){
       console.log(error);
@@ -24,10 +24,10 @@ const VerifyLawyers = () => {
   const handleAudit =async (id, action) => {
    try{
     if(action=="approve"){
-      await axios.put(`http://localhost:3000/api/admin/approve-lawyer/${id}`)
+      await axios.put(`${import.meta.env.Base_Url}/api/admin/approve-lawyer/${id}`)
     }
     if(action=="reject"){
-      await axios.put(`http://localhost:3000/api/admin/reject-lawyer/${id}`)
+      await axios.put(`${import.meta.env.Base_Url}/api/admin/reject-lawyer/${id}`)
     }
     alert(`The lawyer profile is succesfully ${
       action=="approve"?"verified & activated":

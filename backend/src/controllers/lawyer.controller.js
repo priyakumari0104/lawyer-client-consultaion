@@ -1,6 +1,6 @@
 const lawyermodel =
 require('../models/lawyer.model');
-
+const Appointment=require("../models/appoinment.model");
 const bcrypt =
 require('bcrypt');
 
@@ -17,7 +17,7 @@ async function(req,res){
 
     const {
 
-      userName,
+      
       fullName,
       password,
       email,
@@ -33,10 +33,11 @@ async function(req,res){
 
 
     // VALIDATION FIRST
-
+console.log("BODY:", req.body);
+console.log("FILES:", req.files);
     if(
 
-      !userName ||
+    
       !fullName ||
       !password ||
       !email ||
@@ -83,9 +84,7 @@ async function(req,res){
 
       $or:[
 
-        {
-          userName:userName
-        },
+      
 
         {
           email:email
@@ -157,7 +156,7 @@ async function(req,res){
     const lawyer =
     await lawyermodel.create({
 
-      userName,
+      
 
       fullName,
 
@@ -248,7 +247,7 @@ async function(req,res){
     })
   }
  }
- //fetchng all verified lawyers to view 
+ //fetchng all verified lawyers to view ssss
  const verifiedlawyers= async (req,res)=>{
   try{
     const lawyer= await lawyermodel.find({
@@ -281,7 +280,47 @@ async function(req,res){
     })
   }
  }
+ const lawyerdashboard= async(req,res)=>{
+  try{
+const lawyerId=  req.params.lawyerId;
+console.log("lawyer id from params",lawyerId)
+const totalAppointments= await Appointment.countDocuments({
+  lawyerId,
+})
+console.log(totalAppointments);
+const pendingAppointments=await Appointment.countDocuments({
+  lawyerId,
+  status:"pending"
+})
+const approvedAppointments=await Appointment.countDocuments({
+  lawyerId,
+  status:"approved"
+})
+const upcoomingAppointments=await Appointment.find({
+  lawyerId,
+  status:"approved"
+}).populate("clientId")
+.sort({createdAt:-1});
+const uniqueClients= await Appointment.distinct("clientId",{lawyerId});
+res.status(200).json({
+  message:"dashboard data fetched",
+  success:true,
+  stats:{
+    totalAppointments,
+    pendingAppointments,
+    totalclients:uniqueClients.length,
+    approvedAppointments
+  },
+  upcoomingAppointments,
+})
+  }catch(erorr){
+res.status(500).json({
+  message:erorr.message,
+  success:false
+})
+  }
+ }
 
 module.exports = {
-  lawyerregister,lawyerUpdate,verifiedlawyers,lawyerById
+  lawyerregister,lawyerUpdate,verifiedlawyers,lawyerById,lawyerdashboard
 };

@@ -13,7 +13,7 @@ const ClientAppointments = () => {
 
       // Replace this endpoint with your actual client-side appointments route
       const response = await axios.get(
-        `http://localhost:3000/api/appointment/client/${user._id}`,
+        `${import.meta.env.VITE_BASE_URL}/api/appointment/client/${user._id}`,
       );
       setAppointments(response.data.appointments || []);
     } catch (error) {
