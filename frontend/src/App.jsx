@@ -18,9 +18,13 @@ import AdminDashboard from "./admin/adminDashboard";
 import ManageUsers from "./admin/manageUsers";
 import VerifyLawyers from "./admin/verifyLawyers";
 import Reports from "./admin/reports";
+<<<<<<< HEAD
 import BookAppointment from "./client/BookAppoinments";
 import Myappointments from "./client/myAppointments";
 import Chat from "./pages/Chatbox";
+=======
+import BookAppointment from "./client/bookAppoinments";
+>>>>>>> 82e187e27560d9cec6b52e8c488b9edb321aa33b
 
 import { useEffect } from "react";
 function App() {
@@ -90,10 +94,16 @@ function App() {
       element={<Documents />}
     />
     <Route
+<<<<<<< HEAD
     path="/client/book-appointment/:lawyerId"
     element={<BookAppointment/>}
     />
     
+=======
+      path="/client/bookappoinment"
+      element={<BookAppointment />}
+    />
+>>>>>>> 82e187e27560d9cec6b52e8c488b9edb321aa33b
 // lawyer routes
 
 <Route

@@ -247,6 +247,7 @@ console.log("FILES:", req.files);
     })
   }
  }
+<<<<<<< HEAD
  //fetchng all verified lawyers to view ssss
  const verifiedlawyers= async (req,res)=>{
   try{
@@ -323,4 +324,27 @@ res.status(500).json({
 
 module.exports = {
   lawyerregister,lawyerUpdate,verifiedlawyers,lawyerById,lawyerdashboard
+=======
+ const getAllLawyers= async (req,res)=>{
+  try{
+     const allLawyers= await lawyermodel.find({
+      verificationStatus:"pending"
+     })
+      res.status(200).json({
+        message:"all lawyers fetched",
+         success:true,
+         allLawyers
+      })
+  }
+  catch(error){
+     console.log(error);
+      res.status(500).json({
+        message:error.message,
+        success:false
+      })
+  }
+ }
+module.exports = {
+  lawyerregister,lawyerUpdate,getAllLawyers
+>>>>>>> 82e187e27560d9cec6b52e8c488b9edb321aa33b
 };

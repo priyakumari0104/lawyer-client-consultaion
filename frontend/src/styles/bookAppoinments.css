@@ -1,0 +1,195 @@
+/* ==========================================================================
+   1. CORE CANVAS ARCHITECTURE
+   ========================================================================== */
+.booking-container {
+  width: 100%;
+  max-width: 680px;
+  margin: 40px auto;
+  padding: 0 20px;
+  color: #e2e8f0;
+}
+
+/* Back Link Utility Navigation Button */
+.back-link-btn {
+  display: inline-flex;
+  align-items: center;
+  color: #00d9ff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  transition: transform 0.2s ease;
+}
+
+.back-link-btn:hover {
+  color: #ffffff;
+  transform: translateX(-4px);
+}
+
+/* ==========================================================================
+   2. MAIN PREMIUM COMPONENT SHEET
+   ========================================================================== */
+.booking-card-premium {
+  background: #111625; /* Elevated structural tier level 2 dark base block */
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.booking-header {
+  margin-bottom: 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 24px;
+}
+
+.booking-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.booking-header .subtitle {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/* ==========================================================================
+   3. INTERNAL FORM FIELD SETS
+   ========================================================================== */
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #cbd5e1;
+  letter-spacing: 0.3px;
+}
+
+/* Standardized Inputs & Area Base Shells */
+.form-select-field,
+.form-textarea-field {
+  width: 100%;
+  background: #161c2e; /* Nested interior input background tier */
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-select-field {
+  padding: 14px 16px;
+  cursor: pointer;
+  appearance: none; /* Strips ugly native browser select arrows */
+}
+
+.form-textarea-field {
+  padding: 16px;
+  line-height: 1.6;
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Interactive Input States */
+.form-select-field:focus,
+.form-textarea-field:focus {
+  border-color: #00d9ff;
+  background: #192035;
+  box-shadow: 0 0 16px rgba(0, 217, 255, 0.12);
+}
+
+/* Custom dropdown integration wrapper */
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: "▼";
+  font-size: 10px;
+  color: #64748b;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.field-helper-text {
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   4. INTERACTIVE SUBMIT ACTION BUTTONS
+   ========================================================================== */
+.booking-actions {
+  margin-top: 12px;
+}
+
+.submit-request-btn {
+  width: 100%;
+  padding: 15px 24px;
+  background: linear-gradient(135deg, #00d9ff, #0077ff);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 217, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.submit-request-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 217, 255, 0.4);
+}
+
+.submit-request-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.submit-request-btn:disabled {
+  background: #242b3d;
+  color: #475569;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.label-row-spacing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.char-counter {
+  font-size: 11px;
+  color: #475569;
+  font-weight: 500;
+}
+
+/* Disabled UI Button States during API runtime */
+.submit-request-btn.loading {
+  background: #1e293b;
+  color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.7;
+}

@@ -9,6 +9,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+   const [loading,setLoading]=useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -24,6 +25,7 @@ const Login = () => {
        const res=  await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`,formData);
        localStorage.setItem("token",res.data.token);
        localStorage.setItem("user",JSON.stringify(res.data.user));
+       setLoading(false);
        alert(res.data.message);
        if(res.data.role==="client"){
          navigate("/client/dashboard");
@@ -35,6 +37,8 @@ const Login = () => {
       }
 catch(err){
   console.log(err);
+       setLoading(false);
+
   alert(err.response?.data?.message);
 }finally{
   setLoading(false);

@@ -21,10 +21,11 @@ console.log(error);
 
   return (
     <div className="findlawyers-container">
-       {/* 🌟 NEW: Elegant Back to Dashboard Trigger */}
+      {/* Elegant Back to Dashboard Trigger */}
       <Link to="/client/dashboard" className="back-dashboard-btn">
         <span className="arrow">←</span> Back to Dashboard
       </Link>
+
       {/* Top Bar with Page Actions */}
       <div className="findlawyers-header">
         <div>
@@ -33,10 +34,7 @@ console.log(error);
         </div>
         <div className="search-wrapper">
           <span className="search-icon">🔍</span>
-          <input
-            type="text"
-            placeholder="Search lawyer by specialization..."
-          />
+          <input type="text" placeholder="Search lawyer by specialization..." />
         </div>
       </div>
 
@@ -49,12 +47,13 @@ console.log(error);
             <div className="profile-wrapper">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png"
-                alt={lawyer.name}
+                alt={item.name}
+                className="lawyer-avatar"
               />
               <h2>{lawyer.fullName}</h2>
               {/* Specialized Tagging Badge System */}
-              <span className={`specialization-tag ${lawyer.specialization.toLowerCase().replace(" ", "-")}`}>
-                {lawyer.specialization}
+              <span className={`specialization-tag ${(item.specialization || "general").toLowerCase().replace(/\s+/g, "-")}`}>
+                {item.specialization}
               </span>
             </div>
 
