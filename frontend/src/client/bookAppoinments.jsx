@@ -9,7 +9,7 @@ const BookAppointment = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lawyerName, setLawyerName] = useState("Selected Practitioner"); // Dynamic fallback
-
+const[selectedFiles,setSelectedFiles]=useState([]);
   const [formData, setFormData] = useState({
     issueType: "",
     description: "",
@@ -19,7 +19,7 @@ const BookAppointment = () => {
   useEffect(() => {
     const fetchLawyerDetails = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/lawyers/${lawyerId}`);
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/lawyer/${lawyerId}`);
         if (res.data?.name) setLawyerName(res.data.name);
       } catch (err) {
         console.warn("Could not retrieve dynamic lawyer profile metadata, using fallback reference.");
@@ -55,7 +55,8 @@ const BookAppointment = () => {
       setIsSubmitting(true);
 
       const res = await axios.post(
-        "http://localhost:3000/api/appointment/request",
+        
+        `${import.meta.env.VITE_BASE_URL}/api/appointment/request`,
         {
           clientId: user._id,
           lawyerId,
@@ -63,11 +64,35 @@ const BookAppointment = () => {
           description: formData.description,
         }
       );
+      console.log("Appointments response",res.data);
+      const appointment=res.data.appoinment;
+      console.log("case id",appointment.caseId);
+      console.log("appointments cretad",appointment)
+      // upload documents logic
+      if(selectedFiles.length>0){
+        for(const file of selectedFiles){
+            const uploadData= new FormData();
+            uploadData.append("document",file);
+            uploadData.append("clientId",appointment.clientId);
+            uploadData.append("lawyerId",appointment.lawyerId);
+            uploadData.append("appointmentId",appointment._id)
+            uploadData.append("caseId",appointment.caseId);
+            uploadData.append("documentTYPE","evidence");
+            for(const pair of uploadData.entries()){
+              console.log(pair[0],pair[1]);
+            }
+            const uploadresource=await axios.post(
+            `${import.meta.env.VITE_BASE_URL}/api/document/upload`,uploadData
+            );
+            console.log("file uploaded succesfully",uploadresource.data);
+        }
+        
+      }
 
       alert(res.data.message || "Consultation requested successfully!");
-      navigate("/appointments");
+      navigate("/client/appointments");
     } catch (error) {
-      console.error(error);
+      console.error(error.response?.data||error);
       alert(error.response?.data?.message || "Booking request failed. Please retry.");
     } finally {
       setIsSubmitting(false);
@@ -134,6 +159,20 @@ const BookAppointment = () => {
               Limit details to essential facts. Confidential elements are protected under secure attorney-client privilege guidelines.
             </div>
           </div>
+          {/* file upload system */}
+          <label> Attach Documents (optional)</label>
+          <input type="file"
+          multiple
+          accept=".pdf,.jpg,.jpeg,.png,.docx"
+          onChange={(e)=>{
+            setSelectedFiles(Array.from(e.target.files));
+          }}/>
+          {selectedFiles.length>0 && (<div>
+            <p> Selected files:</p>
+            {selectedFiles.map((file,index)=>(
+              <p key={index}>{file.name}</p>
+            ))}
+          </div>)}
 
           {/* SUBMIT COMPONENT EXECUTION PANEL */}
           <div className="booking-actions">

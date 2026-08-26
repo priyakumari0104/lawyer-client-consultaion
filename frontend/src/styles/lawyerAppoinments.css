@@ -289,3 +289,141 @@
   white-space: pre-wrap; /* Preserves client's natural spacing and paragraphs */
   word-break: break-word;
 }
+.documents-panel {
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid #293348;
+  border-radius: 14px;
+  background: #171f30;
+}
+
+.documents-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+
+  color: #e5e7eb;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.document-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 26px;
+  height: 26px;
+  padding: 0 8px;
+
+  border-radius: 50px;
+  background: #1e88e5;
+  color: white;
+  font-size: 12px;
+}
+
+.documents-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.document-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 16px;
+
+  background: #1d2638;
+  border: 1px solid #2c3850;
+  border-radius: 12px;
+
+  transition: 0.2s ease;
+}
+
+.document-card:hover {
+  border-color: #38bdf8;
+  transform: translateY(-1px);
+}
+
+.document-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-width: 0;
+}
+
+.document-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  background: #26334a;
+  font-size: 20px;
+
+  flex-shrink: 0;
+}
+
+.document-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.document-name {
+  color: #f1f5f9;
+  font-size: 14px;
+  font-weight: 600;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  max-width: 400px;
+}
+
+.document-type {
+  color: #8492a8;
+  font-size: 12px;
+}
+
+.open-document-btn {
+  padding: 9px 16px;
+
+  border: 1px solid #38bdf8;
+  border-radius: 8px;
+
+  background: transparent;
+  color: #38bdf8;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.open-document-btn:hover {
+  background: #38bdf8;
+  color: #07111f;
+}
+
+.no-documents {
+  padding: 25px;
+  text-align: center;
+  color: #8492a8;
+}
+
+.no-documents span {
+  display: block;
+  font-size: 26px;
+  margin-bottom: 8px;
+}

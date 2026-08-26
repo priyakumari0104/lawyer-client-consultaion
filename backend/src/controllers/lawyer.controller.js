@@ -1,6 +1,7 @@
 const lawyermodel =
 require('../models/lawyer.model');
 const Appointment=require("../models/appoinment.model");
+const createActivity=require("../utils/createActivity");
 const bcrypt =
 require('bcrypt');
 
@@ -200,7 +201,15 @@ console.log("FILES:", req.files);
 
       process.env.JWT_SECRETKEY
     );
-
+    console.log("before activity")
+const activity=await createActivity({
+  category: "action",
+  title: "New Lawyer Verification",
+  message: `${lawyer.fullName} registered and is waiting for verification.`,
+  relatedId: lawyer._id,
+  relatedModel: "lawyers",
+});
+console.log("after activity ",activity);
     res.status(201).json({
 
       success:true,
@@ -247,7 +256,6 @@ console.log("FILES:", req.files);
     })
   }
  }
-<<<<<<< HEAD
  //fetchng all verified lawyers to view ssss
  const verifiedlawyers= async (req,res)=>{
   try{
@@ -324,27 +332,4 @@ res.status(500).json({
 
 module.exports = {
   lawyerregister,lawyerUpdate,verifiedlawyers,lawyerById,lawyerdashboard
-=======
- const getAllLawyers= async (req,res)=>{
-  try{
-     const allLawyers= await lawyermodel.find({
-      verificationStatus:"pending"
-     })
-      res.status(200).json({
-        message:"all lawyers fetched",
-         success:true,
-         allLawyers
-      })
-  }
-  catch(error){
-     console.log(error);
-      res.status(500).json({
-        message:error.message,
-        success:false
-      })
-  }
- }
-module.exports = {
-  lawyerregister,lawyerUpdate,getAllLawyers
->>>>>>> 82e187e27560d9cec6b52e8c488b9edb321aa33b
 };

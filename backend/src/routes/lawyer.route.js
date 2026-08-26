@@ -35,12 +35,10 @@ router.post(
 );
 
  router.put("/update/:id",lawyercontroller.lawyerUpdate);
-<<<<<<< HEAD
+
  
  router.get("/verified-lawyer",lawyercontroller.verifiedlawyers);
  router.get("/:id",lawyercontroller.lawyerById);
  router.get("/dashboard/:lawyerId",lawyercontroller.lawyerdashboard);
-=======
- router.get("/all",lawyercontroller.getAllLawyers);
->>>>>>> 82e187e27560d9cec6b52e8c488b9edb321aa33b
+ 
 module.exports = router;

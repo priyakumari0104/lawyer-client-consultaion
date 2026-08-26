@@ -242,6 +242,7 @@
 .section-head h2 {
   font-size: 20px;
   font-weight: 600;
+  color: #4fb8c9;
 }
 
 .section-head p {
@@ -401,6 +402,7 @@
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
+  color: #7f8ff0;
 }
 
 .lawyer-cards {
@@ -527,58 +529,162 @@ gap:20px;
 
 }
 
-.notification-wrapper{
+.notification-wrapper {
+  position: relative;
+  width: 42px;
+  height: 42px;
 
-position:relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-cursor:pointer;
+  cursor: pointer;
 
+  border-radius: 50%;
+  transition: background 0.2s ease;
 }
 
-.notification-icon{
-
-font-size:32px;
-
-color:white;
-
-transition:.3s;
-
+.notification-wrapper:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.notification-icon:hover{
-
-transform:scale(1.1);
-
-color:#38bdf8;
-
+.notification-icon {
+  font-size: 28px;
+  color: white;
 }
 
-.notification-badge{
+.notification-badge {
+  position: absolute;
 
-position:absolute;
+  top: -2px;
+  right: -2px;
 
-top:-8px;
+  min-width: 19px;
+  height: 19px;
 
-right:-8px;
+  padding: 0 5px;
 
-background:#ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-color:white;
+  background: #ef4444;
+  color: white;
 
-font-size:12px;
+  border: 2px solid #111827;
+  border-radius: 50%;
 
-width:20px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}/* =====================================
+   MOBILE HAMBURGER SIDEBAR
+===================================== */
 
-height:20px;
+.sidebar-toggle,
+.sidebar-close-btn {
+  display: none;
+}
 
-display:flex;
+@media screen and (max-width: 768px) {
 
-align-items:center;
+  /* Main content takes full width */
+  .dashboard-container {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
 
-justify-content:center;
+  .dashboard-main {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 
-border-radius:50%;
+  /* Show hamburger */
+  .sidebar-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
 
-font-weight:600;
+    padding: 10px 14px;
+    margin-bottom: 22px;
 
+    background: #161c2e;
+    color: #e2e8f0;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Hidden sidebar */
+  .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 280px !important;
+    height: 100vh !important;
+
+    padding: 22px 20px !important;
+
+    z-index: 1001 !important;
+
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s ease !important;
+
+    overflow-y: auto !important;
+  }
+
+  /* Open sidebar */
+  .sidebar.sidebar-open {
+    transform: translateX(0) !important;
+  }
+
+  /* Close button */
+  .sidebar-close-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    margin-bottom: 20px;
+
+    background: #161c2e;
+    color: #e2e8f0;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+
+    cursor: pointer;
+  }
+
+  /* Dark background behind menu */
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    z-index: 1000;
+  }
+
+  /* Sidebar links */
+  .sidebar ul {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: visible !important;
+  }
+
+  .sidebar .nav-link,
+  .sidebar ul a {
+    width: 100%;
+  }
 }

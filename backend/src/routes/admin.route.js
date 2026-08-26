@@ -6,4 +6,5 @@ router.get("/pending-lawyer",admincontroller.getpendinglawyer);
 router.put("/approve-lawyer/:id",admincontroller.approvelawyers);
 router.put("/reject-lawyer/:id",admincontroller.rejectlawyer);
 router.get("/dashboard",admincontroller.dashboardStats);
+router.get("/manage-user",admincontroller.manageUsers);
 module.exports=router;

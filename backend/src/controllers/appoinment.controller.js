@@ -1,23 +1,39 @@
 const appoinmentModel = require("../models/appoinment.model");
 const Notification=require("../models/notification.model")
+const Case= require("../models/case.model")
+const createActivity=require("../utils/createActivity")
+
+
 const createAppoinment= async (req,res)=>{
     try{
         const {clientId,lawyerId,issueType,description}=req.body;
-        
+        const newCase = await Case.create({
+  clientId,
+  lawyerId,
+  title: issueType,
+  description,
+});
         const appoinment = await appoinmentModel.create({
             clientId:clientId,
             lawyerId:lawyerId,
             issueType:issueType,
+             caseId: newCase._id,
             description:description
         });
-        console.log("before ntification");
+        const activity=await createActivity({
+            category:"appointment",
+            tittle:"New Consultaion Requested",
+            message:`A new consultaion request is created`,
+            relatedId:appoinment._id,
+            relatedModel:"appointments"
+        })
         await Notification.create({
             userId:lawyerId,
             tittle:"New Consultation request",
             message:"A client has requested a consultation with you.",
             type:"info"
         })
-        console.log("notification created");
+    
         res.status(200).json({
             message:"appointment created successfully",
             success:true,
@@ -64,6 +80,13 @@ const approverequest= async (req,res)=>{
                 success:false
             })
         }
+        await createActivity({
+  category: "appointment",
+  title: "Consultation Approved",
+  message: `A consultation request was approved by the lawyer.`,
+  relatedId: requests._id,
+  relatedModel: "appointments",
+});
         await Notification.create({
             userId:requests.clientId,
             tittle:"Appoinment Approved",
@@ -95,6 +118,13 @@ const rejectrequest= async (req,res)=>{
                 success:false
             })
         }
+        await createActivity({
+  category: "alert",
+  title: "Consultation Rejected",
+  message: `A consultation request was rejected.`,
+  relatedId: requests._id,
+  relatedModel: "appointments",
+});
         await Notification.create({
             userId:requests.clientId,
             tittle:"Appointment rejected",

@@ -9,6 +9,10 @@ const authRoutes = require("./routes/auth.route");
 const appointmentroute = require("./routes/appointment.route");
 const messageroute= require("./routes/message.route");
 const notificationroute=require("./routes/notification.route");
+const documentroute=require("./routes/document.route");
+const activityroute=require("./routes/activity.route");
+const otpRoute=require("./routes/otp.route");
+
 const cors = require("cors");
 
 require("dotenv").config();
@@ -24,6 +28,9 @@ app.use("/api/admin", adminroute);
 app.use("/api/appointment", appointmentroute);
 app.use("/api/chat",messageroute);
 app.use("/api/notification",notificationroute);
+app.use("/api/document",documentroute)
+app.use("/api/activity",activityroute);
+app.use("/api/otp",otpRoute);
 connectDB();
 
 module.exports = app;

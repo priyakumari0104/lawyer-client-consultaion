@@ -18,13 +18,9 @@ import AdminDashboard from "./admin/adminDashboard";
 import ManageUsers from "./admin/manageUsers";
 import VerifyLawyers from "./admin/verifyLawyers";
 import Reports from "./admin/reports";
-<<<<<<< HEAD
 import BookAppointment from "./client/BookAppoinments";
 import Myappointments from "./client/myAppointments";
 import Chat from "./pages/Chatbox";
-=======
-import BookAppointment from "./client/bookAppoinments";
->>>>>>> 82e187e27560d9cec6b52e8c488b9edb321aa33b
 
 import { useEffect } from "react";
 function App() {
@@ -60,77 +56,121 @@ function App() {
 />
 
     {/* CLIENT ROUTES */}
-
     <Route
-      path="/client/dashboard"
-      element={
-        <ProtectedRoute>
-          <Clientdashboard/>
-        </ProtectedRoute>
-      }
-    />
+  path="/client/dashboard"
+  element={
+    <ProtectedRoute role="client">
+      <Clientdashboard />
+    </ProtectedRoute>
+  }
+/>
 
-    <Route
-      path="/client/profile"
-      element={<Profile />}
-    />
+   <Route
+  path="/client/find-lawyers"
+  element={
+    <ProtectedRoute role="client">
+      <FindLawyers />
+    </ProtectedRoute>
+  }
+/>
 <Route
-      path="/client/appointments"
-      element={<Myappointments />}
-    />
-    
+  path="/client/book-appointment/:lawyerId"
+  element={
+    <ProtectedRoute role="client">
+      <BookAppointment />
+    </ProtectedRoute>
+  }
+/>
 
-    <Route
-      path="/client/notifications"
-      element={<Notifications />}
-    />
+<Route
+  path="/client/appointments"
+  element={
+    <ProtectedRoute role="client">
+      <Myappointments />
+    </ProtectedRoute>
+  }
+/>
 
-    <Route
-      path="/client/find-lawyers"
-      element={<FindLawyers />}
-    />
-    <Route
-      path="/client/documents"
-      element={<Documents />}
-    />
-    <Route
-<<<<<<< HEAD
-    path="/client/book-appointment/:lawyerId"
-    element={<BookAppointment/>}
-    />
-    
-=======
-      path="/client/bookappoinment"
-      element={<BookAppointment />}
-    />
->>>>>>> 82e187e27560d9cec6b52e8c488b9edb321aa33b
+<Route
+  path="/client/documents"
+  element={
+    <ProtectedRoute role="client">
+      <Documents />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/client/profile"
+  element={
+    <ProtectedRoute role="client">
+      <Profile />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/client/notifications"
+  element={
+    <ProtectedRoute role="client">
+      <Notifications />
+    </ProtectedRoute>
+  }
+/>
 // lawyer routes
 
 <Route
-      path="/lawyer/dashboard"
-      element={
-        <ProtectedRoute role="lawyer">
-          <LawyerDashboard/>
-        </ProtectedRoute>
-      }
-    />
+  path="/lawyer/requests"
+  element={
+    <ProtectedRoute role="lawyer">
+      <ClientRequests />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/lawyer/dashboard"
+  element={
+    <ProtectedRoute role="lawyer">
+      <LawyerDashboard />
+    </ProtectedRoute>
+  }
+/>
 
-  <Route
-      path="/lawyer/requests"
-      element={<ClientRequests />}
-    />
 <Route
-      path="/lawyer/appoinments"
-      element={<LawyerAppointments />}
-    />
+  path="/lawyer/appoinments"
+  element={
+    <ProtectedRoute role="lawyer">
+      <LawyerAppointments />
+    </ProtectedRoute>
+  }
+/>
+
 <Route
-      path="/lawyer/profile"
-      element={<LawyerProfile />}
-    />
+  path="/lawyer/profile"
+  element={
+    <ProtectedRoute role="lawyer">
+      <LawyerProfile />
+    </ProtectedRoute>
+  }
+/>
+
 <Route
-      path="/lawyer/status"
-      element={<VerificationStatus />}
-    />
+  path="/lawyer/status"
+  element={
+    <ProtectedRoute role="lawyer">
+      <VerificationStatus />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/lawyer/notifications"
+  element={
+    <ProtectedRoute role="lawyer">
+      <Notifications />
+    </ProtectedRoute>
+  }
+/>
   // admin
 <Route path="/admin/dashboard"
 element={

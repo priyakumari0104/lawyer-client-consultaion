@@ -1,6 +1,7 @@
   const clientmodel=require('../models/client.model');
   const jwt=require('jsonwebtoken');
   const bcrypt=require('bcrypt');
+  const createActivity=require("../utils/createActivity")
  async function register(req,res){
      console.log("✅ Client Register API Hit");
     const {email,password,role,fullName,phoneNumber,
@@ -44,6 +45,13 @@
          const token=jwt.sign({
             id:user._id
          },process.env.JWT_SECRETKEY)
+         const activity= await createActivity({
+            category:"user",
+            tittle:"New Client Registered",
+            message:`${user.fullName} created a new account`,
+            relatedId:user._id,
+            relatedModel:"clients"
+         })
           res.status(201).json({
             success:true,
             message:"User registered successfully",

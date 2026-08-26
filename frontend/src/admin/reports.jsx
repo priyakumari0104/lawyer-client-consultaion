@@ -1,34 +1,78 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/reports.css";
+import axios from "axios";
 
 const Reports = () => {
-  // Simulating a real analytics backend dataset with period trend tracking
-  const metrics = [
-    { id: 1, title: "Total Consultations", value: "245", trend: "+14.2%", isPositive: true, subtext: "vs previous month" },
-    { id: 2, title: "Verified Lawyers", value: "56", trend: "+4 new", isPositive: true, subtext: "this week" },
-    { id: 3, title: "Active Clients", value: "180", trend: "+28%", isPositive: true, subtext: "new registrations" },
-    { id: 4, title: "Revenue Generated", value: "₹2.5L", trend: "+8.4%", isPositive: true, subtext: "platform commission" }
-  ];
+  const [stats, setStats] = useState({
+    totalConsultaions: 0,
+    verifiedlawyers: 0,
+    totalclient: 0,
+    revenue: 0,
+    recentConsultations: [],
+  });
 
-  const recentTransactions = [
-    { id: "TXN9842", lawyer: "Adv. Rahul Sharma", client: "Nitya Sharma", fee: "₹1,500", status: "Settled" },
-    { id: "TXN9843", lawyer: "Adv. Priya Verma", client: "Amit Kapoor", fee: "₹2,500", status: "Processing" }
-  ];
+  const [loading, setLoading] = useState(true);
+
+  // =========================
+  // FETCH REPORT DATA
+  // =========================
+  const fetchReportsData = async () => {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/api/admin/dashboard`
+    );
+
+    console.log("FULL API RESPONSE:", response);
+    console.log("API DATA:", response.data);
+    console.log("STATS:", response.data.stats);
+
+    setStats(response.data.stats);
+
+  } catch (error) {
+    console.error("REPORT API ERROR:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+  useEffect(() => {
+    fetchReportsData();
+  }, []);
+
+  // =========================
+  // LOADING
+  // =========================
+  if (loading) {
+    return (
+      <div className="reports-container">
+        <p>Loading reports...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="reports-container">
-      {/* Back to Dashboard Navigation Link */}
-      <Link to="/admin/dashboard" className="back-dashboard-btn">
-        <span className="arrow">←</span> Back to Dashboard
+
+      {/* BACK TO DASHBOARD */}
+      <Link
+        to="/admin/dashboard"
+        className="back-dashboard-btn"
+      >
+        <span className="arrow">←</span>
+        Back to Dashboard
       </Link>
 
-      {/* Analytics Header Section */}
+      {/* HEADER */}
       <div className="reports-header">
         <div>
           <h1>Reports & Analytics</h1>
-          <p className="subtitle">Monitor platform metrics, transaction pipelines, and user growth parameters</p>
+
+          <p className="subtitle">
+            Monitor platform metrics, consultations, and user activity
+          </p>
         </div>
+
         <div className="filter-dropdown-wrapper">
           <select className="time-filter-select">
             <option value="30">Last 30 Days</option>
@@ -38,50 +82,215 @@ const Reports = () => {
         </div>
       </div>
 
-      {/* METRICS OVERVIEW GRID */}
+
+      {/* =========================
+          METRICS
+      ========================= */}
+
       <div className="reports-grid">
-        {metrics.map((metric) => (
-          <div className="report-card-premium" key={metric.id}>
-            <div className="card-top-row">
-              <h3>{metric.title}</h3>
-              <span className={`trend-indicator ${metric.isPositive ? "up" : "down"}`}>
-                {metric.trend}
-              </span>
-            </div>
-            <p className="metric-large-value">{metric.value}</p>
-            <span className="metric-subtext">{metric.subtext}</span>
+
+        {/* TOTAL CONSULTATIONS */}
+        <div className="report-card-premium">
+
+          <div className="card-top-row">
+            <h3>Total Consultations</h3>
+
+            <span className="trend-indicator up">
+              Live
+            </span>
           </div>
-        ))}
+
+          <p className="metric-large-value">
+            {stats.totalConsultaions}
+          </p>
+
+          <span className="metric-subtext">
+            Total consultation requests
+          </span>
+
+        </div>
+
+
+        {/* VERIFIED LAWYERS */}
+        <div className="report-card-premium">
+
+          <div className="card-top-row">
+            <h3>Verified Lawyers</h3>
+
+            <span className="trend-indicator up">
+              Verified
+            </span>
+          </div>
+
+          <p className="metric-large-value">
+            {stats.verifiedlawyers}
+          </p>
+
+          <span className="metric-subtext">
+            Currently verified practitioners
+          </span>
+
+        </div>
+
+
+        {/* CLIENTS */}
+        <div className="report-card-premium">
+
+          <div className="card-top-row">
+            <h3>Active Clients</h3>
+
+            <span className="trend-indicator up">
+              Live
+            </span>
+          </div>
+
+          <p className="metric-large-value">
+            {stats.totalclient}
+          </p>
+
+          <span className="metric-subtext">
+            Registered clients
+          </span>
+
+        </div>
+
+
+        {/* REVENUE */}
+        <div className="report-card-premium">
+
+          <div className="card-top-row">
+            <h3>Revenue Generated</h3>
+
+            <span className="trend-indicator">
+              N/A
+            </span>
+          </div>
+
+          <p className="metric-large-value">
+            ₹{stats.revenue}
+          </p>
+
+          <span className="metric-subtext">
+            Payment system not implemented
+          </span>
+
+        </div>
+
       </div>
 
-      {/* REVENUE BREAKDOWN & TRANSACTION DATA TRACKS */}
+
+      {/* =========================
+          RECENT CONSULTATIONS
+      ========================= */}
+
       <div className="analytics-lower-section">
+
         <div className="transactions-audit-block">
+
           <div className="block-header">
-            <h3>Recent Platform Billings</h3>
-            <span className="live-pulse-badge"><span className="pulse-dot"></span> Live Auditing</span>
+
+            <h3>Recent Consultations</h3>
+
+            <span className="live-pulse-badge">
+              <span className="pulse-dot"></span>
+              Live Data
+            </span>
+
           </div>
-          
+
+
           <div className="audit-table-wrapper">
+
+            {/* TABLE HEADER */}
+
             <div className="table-header-row">
-              <span>Transaction ID</span>
-              <span>Practitioner</span>
+
+              <span>Consultation ID</span>
+
               <span>Client</span>
-              <span>Gross Fee</span>
+
+              <span>Lawyer</span>
+
+              <span>Issue Type</span>
+
               <span>Status</span>
+
             </div>
-            {recentTransactions.map((txn) => (
-              <div className="table-body-row" key={txn.id}>
-                <span className="txn-id">{txn.id}</span>
-                <span className="font-highlight">{txn.lawyer}</span>
-                <span>{txn.client}</span>
-                <span className="fee-highlight">{txn.fee}</span>
-                <span className={`status-pill ${txn.status.toLowerCase()}`}>{txn.status}</span>
+
+
+            {/* TABLE DATA */}
+
+            {stats.recentConsultations &&
+            stats.recentConsultations.length > 0 ? (
+
+              stats.recentConsultations.map((consultation) => (
+
+                <div
+                  className="table-body-row"
+                  key={consultation._id}
+                >
+
+                  {/* CONSULTATION ID */}
+
+                  <span className="txn-id">
+                    {consultation._id.slice(-6)}
+                  </span>
+
+
+                  {/* CLIENT */}
+
+                  <span className="font-highlight">
+                    {consultation.clientId?.fullName ||
+                      "Unknown Client"}
+                  </span>
+
+
+                  {/* LAWYER */}
+
+                  <span>
+                    {consultation.lawyerId?.fullName ||
+                      "Unknown Lawyer"}
+                  </span>
+
+
+                  {/* ISSUE */}
+
+                  <span>
+                    {consultation.issueType ||
+                      "Not specified"}
+                  </span>
+
+
+                  {/* STATUS */}
+
+                  <span
+                    className={`status-pill ${
+                      consultation.status
+                        ?.toLowerCase()
+                        .replace(" ", "-")
+                    }`}
+                  >
+                    {consultation.status}
+                  </span>
+
+                </div>
+
+              ))
+
+            ) : (
+
+              <div className="no-data-message">
+                No consultations found.
               </div>
-            ))}
+
+            )}
+
           </div>
+
         </div>
+
       </div>
+
     </div>
   );
 };

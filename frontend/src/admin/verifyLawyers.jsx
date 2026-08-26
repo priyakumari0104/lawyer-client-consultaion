@@ -13,7 +13,7 @@ const VerifyLawyers = () => {
  },[])
   const getpendinglawyer= async ()=>{
      try{
-      const response=await axios.get`${import.meta.env.VITE_BASE_URL}/api/admin/pending-lawyer`;
+      const response=await axios.get(`${import.meta.env.VITE_BASE_URL}/api/admin/pending-lawyer`);
       setLawyers(response.data.lawyer);
      }catch(error){
       console.log(error);
@@ -24,10 +24,10 @@ const VerifyLawyers = () => {
   const handleAudit =async (id, action) => {
    try{
     if(action=="approve"){
-      await axios.put(`${import.meta.env.Base_Url}/api/admin/approve-lawyer/${id}`)
+      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/admin/approve-lawyer/${id}`)
     }
     if(action=="reject"){
-      await axios.put(`${import.meta.env.Base_Url}/api/admin/reject-lawyer/${id}`)
+      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/admin/reject-lawyer/${id}`)
     }
     alert(`The lawyer profile is succesfully ${
       action=="approve"?"verified & activated":
@@ -66,9 +66,9 @@ const VerifyLawyers = () => {
               {/* TOP HEADER COMPONENT ROW */}
               <div className="verify-card-header">
                 <div className="identity-meta-group">
-                  <img src={lawyer.profilePicture} alt={lawyer.name} className="admin-avatar-preview" />
+                  <img src={lawyer.profilePicture} alt={lawyer.fullName} className="admin-avatar-preview" />
                   <div>
-                    <h2>{lawyer.name}</h2>
+                    <h2>{lawyer.fullName}</h2>
                     <span className="spec-badge">{lawyer.specialization}</span>
                   </div>
                 </div>
@@ -114,10 +114,10 @@ const VerifyLawyers = () => {
               <div className="document-vault-verification-row">
                 <span className="matrix-label docs-label">Required Compliance Files:</span>
                 <div className="vault-buttons-group">
-                  <a href={lawyer.governmentIdProofUrl} className="doc-link-btn" target="_blank" rel="noreferrer">
+                  <a href={lawyer.governmentIdProof} className="doc-link-btn" target="_blank" rel="noreferrer">
                     📄 View Government ID Proof
                   </a>
-                  <a href={lawyer.lawcertificationUrl} className="doc-link-btn" target="_blank" rel="noreferrer">
+                  <a href={lawyer.lawcertification} className="doc-link-btn" target="_blank" rel="noreferrer">
                     📜 View Bar Council Certificate
                   </a>
                 </div>

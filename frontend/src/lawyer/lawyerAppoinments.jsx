@@ -5,7 +5,6 @@ import axios from "axios";
 
 // 🌟 NESTED SUB-COMPONENT: Manages "Read More" individually for each card
 const DescriptionBlock = ({ text }) => {
-  
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (!text)
@@ -43,7 +42,10 @@ const DescriptionBlock = ({ text }) => {
 
 const LawyerAppointments = () => {
   const [appointments, setAppointments] = useState([]);
-const navigate = useNavigate();
+  const [documents, setDocuments] = useState([]);
+const[showDocuments,setShowDocuments]=useState(null);
+  const [selectedAppointmentId, setSelectedAppointmentsId] = useState(null);
+  const navigate = useNavigate();
   const approvedrequests = async () => {
     try {
       const lawyer = JSON.parse(localStorage.getItem("user"));
@@ -57,7 +59,18 @@ const navigate = useNavigate();
       console.error("Error retrieving active appointments:", error);
     }
   };
-
+  const getDocuments = async (appointmentId) => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/document/appointment/${appointmentId}`,
+      );
+      console.log("documents", response.data);
+      setDocuments(response.data.documents || []);
+      setSelectedAppointmentsId(appointmentId);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     approvedrequests();
   }, []);
@@ -133,14 +146,62 @@ const navigate = useNavigate();
 
               {/* NEW RENDER BLOCK: Includes individual Read More handling */}
               <DescriptionBlock text={item.description} />
+              {showDocuments && selectedAppointmentId === item._id && (
+                <div className="documents-panel">
+                  {documents.length === 0 ? (
+                    <div className="no-documents">
+                      <span>📁</span>
+                      <p>No documents attached to this appointment.</p>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="documents-panel-header">
+                        <span>Attached Documents</span>
+                        <span className="document-count">
+                          {documents.length}
+                        </span>
+                      </div>
 
+                      <div className="documents-grid">
+                        {documents.map((doc) => (
+                          <div className="document-card" key={doc._id}>
+                            <div className="document-info">
+                              <div className="document-icon">📄</div>
+
+                              <div className="document-details">
+                                <span className="document-name">
+                                  {doc.fileName}
+                                </span>
+
+                                <span className="document-type">
+                                  {doc.fileType || "Document"}
+                                </span>
+                              </div>
+                            </div>
+
+                            <button
+                              className="open-document-btn"
+                              onClick={() => window.open(doc.fileUrl, "_blank")}
+                            >
+                              Open ↗
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
               {/* FUTURE-PROOF FOOTER ACTIONS */}
               <div className="appointment-action-footer">
                 <button
-                  className="secondary-action-btn disabled-placeholder"
-                  disabled
+                  className="secondary-action-btn"
+                  onClick={() => {
+                    getDocuments(item._id);
+                    setShowDocuments(true);
+                  }}
                 >
-                  📁 0 Files Attached
+                  📁 View Files
                 </button>
                 <button
                   className="action-btn primary-chat-btn"
@@ -151,6 +212,26 @@ const navigate = useNavigate();
                   💬 Launch Secure Chat Room
                 </button>
               </div>
+              {selectedAppointmentId === item._id && (
+                <div className="documents-list">
+                  {documents.length === 0 ? (
+                    <p>No documents are uploaded with this appointment.</p>
+                  ) : (
+                    documents.map((doc) => (
+                      <div className="document-item" key={doc._id}>
+                        <span>📄 {doc.fileName}</span>
+
+                        <button
+                          type="button"
+                          onClick={() => window.open(doc.fileUrl, "_blank")}
+                        >
+                          Open
+                        </button>
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>

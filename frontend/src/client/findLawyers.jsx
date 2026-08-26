@@ -47,13 +47,13 @@ console.log(error);
             <div className="profile-wrapper">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png"
-                alt={item.name}
+                alt={lawyer.name}
                 className="lawyer-avatar"
               />
               <h2>{lawyer.fullName}</h2>
               {/* Specialized Tagging Badge System */}
-              <span className={`specialization-tag ${(item.specialization || "general").toLowerCase().replace(/\s+/g, "-")}`}>
-                {item.specialization}
+              <span className={`specialization-tag ${(lawyer.specialization || "general").toLowerCase().replace(/\s+/g, "-")}`}>
+                {lawyer.specialization}
               </span>
             </div>
 

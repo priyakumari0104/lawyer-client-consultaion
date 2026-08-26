@@ -14,6 +14,11 @@ issueType:{
     type:String,
     required:true
 },
+caseId:{
+type:mongoose.Schema.Types.ObjectId,
+ref:"Case",
+required:false
+},
 description:{
     type:String,
     required:true
