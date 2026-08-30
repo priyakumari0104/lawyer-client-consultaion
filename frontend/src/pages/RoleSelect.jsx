@@ -7,15 +7,13 @@ const RoleSelect = () => {
   const navigate = useNavigate();
 
   const handleRole = (role) => {
-    navigate("/register", {
-      state: { role }
-    });
+    sessionStorage.setItem("registrationRole", role);
+    navigate("/verify-contact");
   };
 
   return (
     <div className="role-container">
 
-      {/* Glow Effects */}
       <div className="glow glow1"></div>
       <div className="glow glow2"></div>
 

@@ -1,28 +1,45 @@
 import React, { useState } from "react";
 import "../styles/register.css";
 import axios from "axios";
-import {
-  useNavigate,
-  useLocation,
-  Link
-} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
 
   const navigate = useNavigate();
-  const location = useLocation();
+
+  // ==========================================
+  // GET VERIFIED DATA FROM SESSION STORAGE
+  // ==========================================
+
+  const verifiedEmail =
+    sessionStorage.getItem("verifiedEmail") || "";
+
+  const verifiedPhone =
+    sessionStorage.getItem("verifiedPhone") || "";
 
   const selectedRole =
-    location.state?.role || "client";
+    sessionStorage.getItem("registrationRole") || "client";
+
+  const verificationToken =
+    sessionStorage.getItem("verificationToken") || "";
+
+  console.log("Registration Role:", selectedRole);
+  console.log("Verified Email:", verifiedEmail);
+  console.log("Verified Phone:", verifiedPhone);
+  console.log("Verification Token:", verificationToken);
+
+
+  // ==========================================
+  // FORM DATA
+  // ==========================================
 
   const [formData, setFormData] = useState({
 
     // common
     fullName: "",
-    
-    email: "",
+    email: verifiedEmail,
     password: "",
-    phoneNumber: "",
+    phoneNumber: verifiedPhone,
     role: selectedRole,
 
     // client
@@ -44,6 +61,11 @@ const Register = () => {
 
   });
 
+
+  // ==========================================
+  // HANDLE INPUT CHANGE
+  // ==========================================
+
   const handleChange = (e) => {
 
     const { name, value, files } = e.target;
@@ -64,79 +86,112 @@ const Register = () => {
 
     }
   };
-const handleSubmit = async (e) => {
 
-  e.preventDefault();
 
-  try {
+  // ==========================================
+  // REGISTER
+  // ==========================================
 
-    let res;
+  const handleSubmit = async (e) => {
 
-    // LAWYER
+    e.preventDefault();
 
-    if(selectedRole === "lawyer"){
+    try {
 
-      const data = new FormData();
+      let res;
 
-      Object.keys(formData).forEach((key)=>{
+      // ======================================
+      // LAWYER
+      // ======================================
 
-        data.append(key, formData[key]);
+      if (selectedRole === "lawyer") {
 
-      });
+        const data = new FormData();
 
-      res = await axios.post(
+        Object.keys(formData).forEach((key) => {
 
-        
-        `${import.meta.env.VITE_BASE_URL}/api/lawyerregister`,
-
-        data,
-
-        {
-
-          headers:{
-            "Content-Type":
-            "multipart/form-data"
+          if (formData[key] !== null && formData[key] !== "") {
+            data.append(key, formData[key]);
           }
 
-        }
+        });
 
+        // IMPORTANT
+        // Send OTP verification token to backend
+        data.append(
+          "verificationToken",
+          verificationToken
+        );
+
+
+        res = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/api/lawyerregister`,
+          data,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+      }
+
+      // ======================================
+      // CLIENT
+      // ======================================
+
+      else {
+
+        const clientData = {
+
+          ...formData,
+
+          verificationToken,
+
+        };
+
+
+        res = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/api/client/register`,
+          clientData
+        );
+
+      }
+
+
+      // ======================================
+      // SUCCESS
+      // ======================================
+
+      alert(res.data.message);
+
+      // Clear registration verification data
+      sessionStorage.removeItem("registrationRole");
+      sessionStorage.removeItem("verifiedEmail");
+      sessionStorage.removeItem("verifiedPhone");
+      sessionStorage.removeItem("verificationToken");
+
+      navigate("/login");
+
+    }
+
+    catch (err) {
+
+      console.log("Registration error:", err);
+
+      alert(
+        err.response?.data?.message ||
+        "Registration failed"
       );
 
     }
 
-    // CLIENT
+  };
 
-    else{
 
-      res = await axios.post(
-
-        
-        `${import.meta.env.VITE_BASE_URL}/api/client/register`,
-
-        formData
-
-      );
-
-    }
-
-    alert(res.data.message);
-
-    navigate("/login");
-
-  }
-
-  catch(err){
-
-    console.log(err);
-
-    alert(
-      err.response?.data?.message
-    );
-
-  }
-
-};
-
+  // ==========================================
+  // UI
+  // ==========================================
 
   return (
 
@@ -159,9 +214,13 @@ const handleSubmit = async (e) => {
           Create your secure account
         </p>
 
+
         <form onSubmit={handleSubmit}>
 
-          {/* COMMON FIELDS */}
+
+          {/* ==================================
+              COMMON FIELDS
+          ================================== */}
 
           <input
             type="text"
@@ -169,17 +228,30 @@ const handleSubmit = async (e) => {
             placeholder="Full Name"
             value={formData.fullName}
             onChange={handleChange}
+            required
           />
 
-          
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-          />
+          {/* VERIFIED EMAIL */}
+
+          <div className="verified-field">
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              disabled
+            />
+
+            <span className="verified-text">
+              ✓ Verified
+            </span>
+
+          </div>
+
+
+          {/* PASSWORD */}
 
           <input
             type="password"
@@ -187,17 +259,32 @@ const handleSubmit = async (e) => {
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
+            required
           />
 
-          <input
-            type="text"
-            name="phoneNumber"
-            placeholder="Phone Number"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-          />
 
-          {/* CLIENT FORM */}
+          {/* VERIFIED PHONE */}
+
+          <div className="verified-field">
+
+            <input
+              type="text"
+              name="phoneNumber"
+              placeholder="Phone Number"
+              value={formData.phoneNumber}
+              disabled
+            />
+
+            <span className="verified-text">
+              ✓ Verified
+            </span>
+
+          </div>
+
+
+          {/* ==================================
+              CLIENT FORM
+          ================================== */}
 
           {selectedRole === "client" && (
 
@@ -208,14 +295,15 @@ const handleSubmit = async (e) => {
                 name="dob"
                 value={formData.dob}
                 onChange={handleChange}
+                required
               />
+
 
               <select
                 name="governmentIdType"
-                value={
-                  formData.governmentIdType
-                }
+                value={formData.governmentIdType}
                 onChange={handleChange}
+                required
               >
 
                 <option value="">
@@ -240,15 +328,16 @@ const handleSubmit = async (e) => {
 
               </select>
 
+
               <input
                 type="text"
                 name="governmentIdNumber"
                 placeholder="Government ID Number"
-                value={
-                  formData.governmentIdNumber
-                }
+                value={formData.governmentIdNumber}
                 onChange={handleChange}
+                required
               />
+
 
               <input
                 type="text"
@@ -256,17 +345,19 @@ const handleSubmit = async (e) => {
                 placeholder="Current Address"
                 value={formData.address}
                 onChange={handleChange}
+                required
               />
+
 
               <input
                 type="text"
                 name="emergencyContactNumber"
                 placeholder="Emergency Contact"
-                value={
-                  formData.emergencyContactNumber
-                }
+                value={formData.emergencyContactNumber}
                 onChange={handleChange}
+                required
               />
+
 
               <label className="upload-label">
                 Upload Identity Proof
@@ -276,13 +367,17 @@ const handleSubmit = async (e) => {
                 type="file"
                 name="governmentIdProof"
                 onChange={handleChange}
+                required
               />
 
             </>
 
           )}
 
-          {/* LAWYER FORM */}
+
+          {/* ==================================
+              LAWYER FORM
+          ================================== */}
 
           {selectedRole === "lawyer" && (
 
@@ -292,6 +387,7 @@ const handleSubmit = async (e) => {
                 name="specialization"
                 value={formData.specialization}
                 onChange={handleChange}
+                required
               >
 
                 <option value="">
@@ -320,13 +416,16 @@ const handleSubmit = async (e) => {
 
               </select>
 
+
               <input
                 type="text"
                 name="experience"
                 placeholder="Years of Experience"
                 value={formData.experience}
                 onChange={handleChange}
+                required
               />
+
 
               <input
                 type="text"
@@ -334,17 +433,19 @@ const handleSubmit = async (e) => {
                 placeholder="Bar Council ID"
                 value={formData.barCouncilId}
                 onChange={handleChange}
+                required
               />
+
 
               <input
                 type="number"
                 name="consultationFee"
                 placeholder="Consultation Fee"
-                value={
-                  formData.consultationFee
-                }
+                value={formData.consultationFee}
                 onChange={handleChange}
+                required
               />
+
 
               <input
                 type="text"
@@ -352,7 +453,9 @@ const handleSubmit = async (e) => {
                 placeholder="Office Address"
                 value={formData.officeAddress}
                 onChange={handleChange}
+                required
               />
+
 
               <textarea
                 name="bio"
@@ -360,15 +463,9 @@ const handleSubmit = async (e) => {
                 value={formData.bio}
                 onChange={handleChange}
               />
-              <label className="upload-label">
-                Upload Government ID Proof
-              </label>
 
-              <input
-                type="file"
-                name="profilePicture"
-                onChange={handleChange}
-              />
+
+              {/* PROFILE PICTURE */}
 
               <label className="upload-label">
                 Upload Profile Picture
@@ -376,9 +473,27 @@ const handleSubmit = async (e) => {
 
               <input
                 type="file"
+                name="profilePicture"
+                onChange={handleChange}
+                required
+              />
+
+
+              {/* LAW CERTIFICATION */}
+
+              <label className="upload-label">
+                Upload Law Certification
+              </label>
+
+              <input
+                type="file"
                 name="lawcertification"
                 onChange={handleChange}
+                required
               />
+
+
+              {/* GOVERNMENT ID */}
 
               <label className="upload-label">
                 Upload Government ID Proof
@@ -388,15 +503,20 @@ const handleSubmit = async (e) => {
                 type="file"
                 name="governmentIdProof"
                 onChange={handleChange}
+                required
               />
 
             </>
 
           )}
 
+
+          {/* REGISTER BUTTON */}
+
           <button type="submit">
             Register
           </button>
+
 
           <Link
             className="login-text"
@@ -410,7 +530,9 @@ const handleSubmit = async (e) => {
       </div>
 
     </div>
+
   );
+
 };
 
 export default Register;
