@@ -47,7 +47,7 @@
          },process.env.JWT_SECRETKEY)
          const activity= await createActivity({
             category:"user",
-            tittle:"New Client Registered",
+            title:"New Client Registered",
             message:`${user.fullName} created a new account`,
             relatedId:user._id,
             relatedModel:"clients"
