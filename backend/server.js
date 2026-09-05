@@ -4,6 +4,7 @@ const { Server } = require("socket.io");
 const server = http.createServer(app);
 const Message = require("./src/models/message.model");
 const {connectRedis}=require("./src/config/redis");
+const PORT=process.env.PORT||3000;
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:5173",
@@ -32,6 +33,6 @@ io.on("connection", (socket) => {
   });
 });
 connectRedis();
-server.listen(3000, () => {
-  console.log("server is running on port 3000");
+server.listen(PORT, "0.0.0.0",() => {
+  console.log(`Serveris runnning on ${PORT}`);
 });
