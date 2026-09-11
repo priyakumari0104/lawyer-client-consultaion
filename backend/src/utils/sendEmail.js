@@ -6,38 +6,66 @@ const brevo = new BrevoClient({
 
 const sendEmailOtp = async (email, otp) => {
     try {
-        const result = await brevo.transactionalEmails.sendTransacEmail({
+        const response = await brevo.transactionalEmails.sendTransacEmail({
             sender: {
                 name: "JurisDesk",
                 email: process.env.BREVO_SENDER_EMAIL
             },
+
             to: [
                 {
                     email: email
                 }
             ],
+
             subject: "JurisDesk Email Verification OTP",
+
             htmlContent: `
-                <div>
+                <div style="
+                    font-family: Arial, sans-serif;
+                    max-width: 600px;
+                    margin: auto;
+                    padding: 20px;
+                ">
+
                     <h2>JurisDesk Email Verification</h2>
 
-                    <p>Your OTP is:</p>
+                    <p>Hello,</p>
 
-                    <h1>${otp}</h1>
+                    <p>
+                        Your OTP for verifying your email address is:
+                    </p>
 
-                    <p>This OTP is valid for 5 minutes.</p>
+                    <h1 style="letter-spacing: 5px;">
+                        ${otp}
+                    </h1>
 
-                    <p>If you did not request this OTP, please ignore this email.</p>
+                    <p>
+                        This OTP is valid for <b>5 minutes</b>.
+                    </p>
+
+                    <p>
+                        If you did not request this OTP,
+                        you can safely ignore this email.
+                    </p>
+
+                    <br>
+
+                    <p>
+                        Regards,<br>
+                        <b>JurisDesk Team</b>
+                    </p>
+
                 </div>
             `
         });
 
-        console.log("Brevo email sent:", result.messageId);
+        console.log("✅ Brevo email sent:", response);
 
-        return result;
+        return response;
 
     } catch (error) {
-        console.error("Brevo email error:", error);
+        console.error("❌ Brevo email error:", error);
         throw error;
     }
 };

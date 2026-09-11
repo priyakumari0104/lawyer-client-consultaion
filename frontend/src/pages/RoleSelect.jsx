@@ -7,8 +7,11 @@ const RoleSelect = () => {
   const navigate = useNavigate();
 
   const handleRole = (role) => {
+    // Store selected role
     sessionStorage.setItem("registrationRole", role);
-    navigate("/verify-contact");
+
+    // Go to the common registration page
+    navigate("/register");
   };
 
   return (

@@ -1,25 +1,13 @@
-const lawyermodel =
-require('../models/lawyer.model');
+const lawyermodel =require('../models/lawyer.model');
 const Appointment=require("../models/appoinment.model");
 const createActivity=require("../utils/createActivity");
-const bcrypt =
-require('bcrypt');
-
-const jwt =
-require('jsonwebtoken');
-
-const imagekit =
-require('../config/imagekit');
-
-const lawyerregister =
-async function(req,res){
-
-  try{
-
-    const {
-
-      
-      fullName,
+const bcrypt =require('bcrypt');
+const jwt =require('jsonwebtoken');
+const imagekit =require('../config/imagekit');
+const lawyerregister =async function(req,res){
+try{
+ const {
+       fullName,
       password,
       email,
       role,
@@ -29,11 +17,9 @@ async function(req,res){
       barCouncilId,
       consultationFee,
       officeAddress
+} = req.body || {};
 
-    } = req.body || {};
 
-
-    // VALIDATION FIRST
 console.log("BODY:", req.body);
 console.log("FILES:", req.files);
     if(

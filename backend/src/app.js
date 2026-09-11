@@ -11,7 +11,7 @@ const messageroute= require("./routes/message.route");
 const notificationroute=require("./routes/notification.route");
 const documentroute=require("./routes/document.route");
 const activityroute=require("./routes/activity.route");
-const otpRoute=require("./routes/otp.route");
+
 
 const cors = require("cors");
 
@@ -30,7 +30,7 @@ app.use("/api/chat",messageroute);
 app.use("/api/notification",notificationroute);
 app.use("/api/document",documentroute)
 app.use("/api/activity",activityroute);
-app.use("/api/otp",otpRoute);
+
 connectDB();
 
 module.exports = app;

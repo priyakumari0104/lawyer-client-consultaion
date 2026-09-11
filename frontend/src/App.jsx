@@ -21,7 +21,7 @@ import Reports from "./admin/reports";
 import BookAppointment from "./client/BookAppoinments";
 import Myappointments from "./client/myAppointments";
 import Chat from "./pages/Chatbox";
-import VerifyContact from "./pages/verifyContact";
+
 import ProtectedRegistrationRoute from "./protectedRegistrationRoute";
 
 import { useEffect } from "react";
@@ -46,15 +46,10 @@ function App() {
     <Route
     path="/register"
     element={
-        <ProtectedRegistrationRoute>
-            <Register />
-        </ProtectedRegistrationRoute>
+       <Register />
     }
 />
-<Route 
-path="/verify-contact"
-element={<VerifyContact/>}
-/>
+
     <Route
       path="/role-select"
       element={<RoleSelect />}

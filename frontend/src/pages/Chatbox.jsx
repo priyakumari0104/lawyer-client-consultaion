@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import axios from "axios";
 import "../styles/chat.css";
 
-const socket = io("http://localhost:3000");
+const socket = io("http://localhost:4000");
 
 const Chat = () => {
   const { appointmentId } = useParams();

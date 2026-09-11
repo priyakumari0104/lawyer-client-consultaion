@@ -7,26 +7,8 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  // ==========================================
-  // GET VERIFIED DATA FROM SESSION STORAGE
-  // ==========================================
-
-  const verifiedEmail =
-    sessionStorage.getItem("verifiedEmail") || "";
-
-  const verifiedPhone =
-    sessionStorage.getItem("verifiedPhone") || "";
-
-  const selectedRole =
-    sessionStorage.getItem("registrationRole") || "client";
-
-  const verificationToken =
-    sessionStorage.getItem("verificationToken") || "";
-
-  console.log("Registration Role:", selectedRole);
-  console.log("Verified Email:", verifiedEmail);
-  console.log("Verified Phone:", verifiedPhone);
-  console.log("Verification Token:", verificationToken);
+  // Get selected role from session storage
+  const selectedRole = sessionStorage.getItem("registrationRole");
 
 
   // ==========================================
@@ -37,9 +19,9 @@ const Register = () => {
 
     // common
     fullName: "",
-    email: verifiedEmail,
+    email: "",
     password: "",
-    phoneNumber: verifiedPhone,
+    phoneNumber: "",
     role: selectedRole,
 
     // client
@@ -116,13 +98,7 @@ const Register = () => {
 
         });
 
-        // IMPORTANT
-        // Send OTP verification token to backend
-        data.append(
-          "verificationToken",
-          verificationToken
-        );
-
+        // NO OTP / VERIFICATION TOKEN
 
         res = await axios.post(
           `${import.meta.env.VITE_BASE_URL}/api/lawyerregister`,
@@ -143,13 +119,10 @@ const Register = () => {
       else {
 
         const clientData = {
-
           ...formData,
-
-          verificationToken,
-
         };
 
+        // NO OTP / VERIFICATION TOKEN
 
         res = await axios.post(
           `${import.meta.env.VITE_BASE_URL}/api/client/register`,
@@ -165,11 +138,8 @@ const Register = () => {
 
       alert(res.data.message);
 
-      // Clear registration verification data
+      // Clear only registration role
       sessionStorage.removeItem("registrationRole");
-      sessionStorage.removeItem("verifiedEmail");
-      sessionStorage.removeItem("verifiedPhone");
-      sessionStorage.removeItem("verificationToken");
 
       navigate("/login");
 
@@ -206,7 +176,7 @@ const Register = () => {
 
         <h1>
           {selectedRole === "lawyer"
-            ? "Verified Lawyer Register"
+            ? "Lawyer Register"
             : "Client Register"}
         </h1>
 
@@ -232,23 +202,16 @@ const Register = () => {
           />
 
 
-          {/* VERIFIED EMAIL */}
+          {/* EMAIL */}
 
-          <div className="verified-field">
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              disabled
-            />
-
-            <span className="verified-text">
-              ✓ Verified
-            </span>
-
-          </div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
 
 
           {/* PASSWORD */}
@@ -263,23 +226,16 @@ const Register = () => {
           />
 
 
-          {/* VERIFIED PHONE */}
+          {/* PHONE NUMBER */}
 
-          <div className="verified-field">
-
-            <input
-              type="text"
-              name="phoneNumber"
-              placeholder="Phone Number"
-              value={formData.phoneNumber}
-              disabled
-            />
-
-            <span className="verified-text">
-              ✓ Verified
-            </span>
-
-          </div>
+          <input
+            type="text"
+            name="phoneNumber"
+            placeholder="Phone Number"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            required
+          />
 
 
           {/* ==================================

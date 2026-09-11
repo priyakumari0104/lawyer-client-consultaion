@@ -3,7 +3,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const server = http.createServer(app);
 const Message = require("./src/models/message.model");
-const {connectRedis}=require("./src/config/redis");
+
 const PORT=process.env.PORT||3000;
 const io = new Server(server, {
   cors: {
@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
     console.log("user disconnected", socket.id);
   });
 });
-connectRedis();
+
 server.listen(PORT, "0.0.0.0",() => {
   console.log(`Serveris runnning on ${PORT}`);
 });
