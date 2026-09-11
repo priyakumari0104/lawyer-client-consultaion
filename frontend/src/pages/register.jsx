@@ -77,7 +77,13 @@ const Register = () => {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-
+const indianPhoneRegex=/^[6-9]\d{9}$/;
+if(!indianPhoneRegex.test(formData.phoneNumber)){
+  alert("Please Enter a valid 10-digit mobile number.")
+}
+if(!indianPhoneRegex.test(formData.emergencyContactNumber)){
+  alert("Please Enter a valid 10-digit mobile number.")
+}
     try {
 
       let res;
@@ -234,6 +240,8 @@ const Register = () => {
             placeholder="Phone Number"
             value={formData.phoneNumber}
             onChange={handleChange}
+            maxLength={10}
+            pattern="[6-9][0-9]{9}"
             required
           />
 
@@ -311,6 +319,8 @@ const Register = () => {
                 placeholder="Emergency Contact"
                 value={formData.emergencyContactNumber}
                 onChange={handleChange}
+                maxLength={10}
+                pattern="[6-9][0-9]{9}"
                 required
               />
 
