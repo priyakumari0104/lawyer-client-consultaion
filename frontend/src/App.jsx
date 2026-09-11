@@ -18,7 +18,7 @@ import AdminDashboard from "./admin/adminDashboard";
 import ManageUsers from "./admin/manageUsers";
 import VerifyLawyers from "./admin/verifyLawyers";
 import Reports from "./admin/reports";
-import BookAppointment from "./client/BookAppoinments";
+import BookAppointment from "./client/BookAppointments";
 import Myappointments from "./client/myAppointments";
 import Chat from "./pages/Chatbox";
 
