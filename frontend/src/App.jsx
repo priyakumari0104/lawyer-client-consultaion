@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Register from "./pages/register";
-import Login from "./pages/login";
+import Login from "./pages/Login";
 import LandingPage from "./pages/LandingPage";
 import RoleSelect from "./pages/RoleSelect";
 import Clientdashboard from "./client/ClientDashboard";
