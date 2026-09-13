@@ -14,10 +14,18 @@ const activityroute=require("./routes/activity.route");
 
 
 const cors = require("cors");
-
+const allowedOrigins=[
+    "http://localhost:5173",
+  "https://lawyer-client-consultation.vercel.app",
+  "https://lawyer-client-consultation-ihbd4n6rd.vercel.app"
+];
+app.use(cors({
+    origin:allowedOrigins,
+    credentials:true
+}));
 require("dotenv").config();
 app.use(express.json());
-app.use(cors());
+
 app.use(cookieparser());
 app.use(express.urlencoded({ extended: true }));
 
