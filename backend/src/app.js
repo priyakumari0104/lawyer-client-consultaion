@@ -17,7 +17,8 @@ const cors = require("cors");
 const allowedOrigins=[
     "http://localhost:5173",
   "https://lawyer-client-consultation.vercel.app",
-  "https://lawyer-client-consultation-ihbd4n6rd.vercel.app"
+  "https://lawyer-client-consultation-ihbd4n6rd.vercel.app",
+  "https://lawyer-client-consultaion-5j94zfjaw.vercel.app/"
 ];
 app.use(cors({
     origin:allowedOrigins,
