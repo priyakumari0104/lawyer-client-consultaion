@@ -12,7 +12,7 @@ const notificationroute=require("./routes/notification.route");
 const documentroute=require("./routes/document.route");
 const activityroute=require("./routes/activity.route");
 
-
+require("dotenv").config();
 const cors = require("cors");
 const allowedOrigins=[
     "http://localhost:5173",
@@ -24,7 +24,7 @@ app.use(cors({
     origin:allowedOrigins,
     credentials:true
 }));
-require("dotenv").config();
+
 app.use(express.json());
 
 app.use(cookieparser());
