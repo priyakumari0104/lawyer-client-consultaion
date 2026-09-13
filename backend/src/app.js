@@ -11,17 +11,11 @@ const messageroute= require("./routes/message.route");
 const notificationroute=require("./routes/notification.route");
 const documentroute=require("./routes/document.route");
 const activityroute=require("./routes/activity.route");
-
-require("dotenv").config();
 const cors = require("cors");
-const allowedOrigins=[
-    "http://localhost:5173",
-  "https://lawyer-client-consultation.vercel.app",
-  "https://lawyer-client-consultation-ihbd4n6rd.vercel.app",
-  "https://lawyer-client-consultaion-5j94zfjaw.vercel.app/"
-];
+require("dotenv").config();
+
 app.use(cors({
-    origin:allowedOrigins,
+    origin:true,
     credentials:true
 }));
 
